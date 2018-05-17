@@ -15,6 +15,9 @@ import SignIn from './components/sign_in';
 
 import reducers from './reducers';
 
+//---
+
+//----
 const createStoreWithMiddleware = applyMiddleware(promise)(createStore);
 
 ReactDOM.render(

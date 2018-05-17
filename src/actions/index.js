@@ -1,40 +1,14 @@
 //stworzenie użytkownika
 import axios from 'axios';
 
-export const GET_USER_GROUPS = 'get_user_groups';
 export const CREATE_USER = 'create_user';
+export const GET_USER_GROUPS = 'get_user_groups';
+
 export const GET_USER_TABLES = 'get_user_tables';
 export const SIGN_IN = 'sign_in';
 export const CREATE_TABLE = 'create_table';
 
 //----------------------------------
-
-export function signIn(values, callback) {
-
-  let axiosConfig = {
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  };
-
-  let request2 = axios.post('http://kanban-project-management-api.herokuapp.com/v1/sessions', values, axiosConfig)
-  .then(request2 => {
-    console.log('signIn:'),
-    console.log(request2.data.data.user),//działa dobrze
-    getUserTables(request2.data.data.user.email, request2.data.data.user.authentication_token)
-    //callback()
-  })
-  .catch((error) => {
-    console.log('Error, trzeba poprawiac :/ ' + error);
-  });
-
-  return {
-    type: SIGN_IN,
-    payload: request2,
-  };
-}
-
-//--------------------------------------
 
 export function createUser(values, callback) {
   let axiosConfig = {
@@ -60,11 +34,43 @@ export function createUser(values, callback) {
   };
 }
 
+//----------------------------------------
+
+export function signIn(values, callback, dane) {
+
+  let axiosConfig = {
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  };
+
+  let request2 = axios.post('http://kanban-project-management-api.herokuapp.com/v1/sessions', values, axiosConfig)
+  .then(request2 => {
+    console.log('signIn:'),
+    console.log(request2.data.data.user)//działa dobrze
+  //  getUserTables(request2.data.data.user.email, request2.data.data.user.authentication_token),
+        setCookie('cookieEmail', request2.data.data.user.email),
+        setCookie('cookieToken', request2.data.data.user.authentication_token),
+
+    //ab = request2.data.data.user,
+    callback()
+  //  dane=request2.data.data.user
+})
+  .catch((error) => {
+    console.log('Error, trzeba poprawiac :/ ' + error);
+  });
+
+  return {
+    type: SIGN_IN,
+    payload: request2
+  };
+}
+
 //------------------------------------
 
 export function getUserTables(email, authentication_token) {
-  console.log(email)//działa dobrze
-  console.log(authentication_token)//działa dobrze
+  console.log('getUserTables ac:', email)//działa dobrze
+  console.log('getUserTables ac:', authentication_token)//działa dobrze
   let axiosConfig = {
     headers: {
       'X-User-Email': email,
@@ -75,18 +81,17 @@ export function getUserTables(email, authentication_token) {
   let request = axios.get('http://kanban-project-management-api.herokuapp.com/v1/tables',axiosConfig)
 
   .then(request => {
-    console.log('getUserTables:');
-    console.log(request.data.data);//działa
-    //!push('/get-user-tables');
+
+    return {
+      type: GET_USER_TABLES,
+      payload: request
+    };
   })
   .catch((error) => {
     console.log('Error, trzeba poprawiac :/ ' + error);
   });
 
-  return {
-    type: GET_USER_TABLES,
-    payload: request
-  };
+
 }
 
 //------------------------------------
@@ -173,3 +178,48 @@ console.log(request)
 //   }
 //
 // }
+
+
+
+
+document.cookie = "nazwaCookie=wartoscCookie"
+function setCookie(name, val, days, path, domain, secure) {
+    if (navigator.cookieEnabled) { //czy ciasteczka są włączone
+        const cookieName = encodeURIComponent(name);
+        const cookieVal = encodeURIComponent(val);
+        let cookieText = cookieName + "=" + cookieVal;
+
+        if (typeof days === "number") {
+            const data = new Date();
+            data.setTime(data.getTime() + (days * 24*60*60*1000));
+            cookieText += "; expires=" + data.toGMTString();
+        }
+
+        if (path) {
+            cookieText += "; path=" + path;
+        }
+        if (domain) {
+            cookieText += "; domain=" + domain;
+        }
+        if (secure) {
+            cookieText += "; secure";
+        }
+
+        document.cookie = cookieText;
+    }
+}
+
+
+function showCookie(name) {
+    if (document.cookie != "") {
+        const cookies = document.cookie.split(/; */);
+
+        for (let i=0; i<cookies.length; i++) {
+            const cookieName = cookies[i].split("=")[0];
+            const cookieVal = cookies[i].split("=")[1];
+            if (cookieName === decodeURIComponent(name)) {
+                return decodeURIComponent(cookieVal);
+            }
+        }
+    }
+}

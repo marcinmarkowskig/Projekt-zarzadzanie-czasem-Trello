@@ -32,6 +32,7 @@ class SignIn extends Component {
     this.props.signIn(values, () => {
       this.props.history.push('/get-user-tables');
     });
+    //export default (values)
   }
 
   render() {
@@ -61,7 +62,6 @@ class SignIn extends Component {
           </Link>
         </div>
       </form>
-
     );
   }
 }
@@ -79,9 +79,13 @@ function validate(values) {
     return errors;
 }
 
+function mapStateToProps(state) {
+  return { tables: state.tables };
+}
+
 export default reduxForm({
   validate: validate,
   form: 'SignInForm'
 })(
-    connect(null,{ signIn })(SignIn)
+    connect(mapStateToProps,{ signIn })(SignIn)
 );

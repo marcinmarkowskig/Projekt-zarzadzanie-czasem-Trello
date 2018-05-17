@@ -1,16 +1,22 @@
 import _ from 'lodash';
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import { getUserTables, createTable } from '../actions';
+import { getUserTables, createTable, signIn } from '../actions';
 import { Link } from 'react-router-dom';
-
-let email;
-let authentication_token;
 
 class GetUserTables extends Component {
   //te dwie rzeczy poniżej są dobrze
+
   componentDidMount() {
-    this.props.getUserTables(email, authentication_token);
+    let cookieEmail = showCookie("cookieEmail");
+    let cookieToken = showCookie("cookieToken");
+    console.log('Wartość cookieEmail c: ', cookieEmail);
+    console.log('Wartość cookieToken c: ', cookieToken);
+    console.log('Wywołuje się GetUserTables')
+    this.props.getUserTables(cookieEmail, cookieToken)
+    //this.props.getUserTables();
+    //this.props.values;
+
   }
 
   // fetchTables() {
@@ -46,4 +52,18 @@ function mapStateToProps(state) {
   return { tables: state.tables };
 }
 
-export default connect(mapStateToProps, { getUserTables: getUserTables })(GetUserTables);
+export default connect(mapStateToProps, { getUserTables, signIn })(GetUserTables);
+
+function showCookie(name) {
+    if (document.cookie != "") {
+        const cookies = document.cookie.split(/; */);
+
+        for (let i=0; i<cookies.length; i++) {
+            const cookieName = cookies[i].split("=")[0];
+            const cookieVal = cookies[i].split("=")[1];
+            if (cookieName === decodeURIComponent(name)) {
+                return decodeURIComponent(cookieVal);
+            }
+        }
+    }
+}
