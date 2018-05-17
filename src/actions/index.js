@@ -81,17 +81,17 @@ export function getUserTables(email, authentication_token) {
   let request = axios.get('http://kanban-project-management-api.herokuapp.com/v1/tables',axiosConfig)
 
   .then(request => {
-
-    return {
-      type: GET_USER_TABLES,
-      payload: request
-    };
+    console.log('getUserTables:');
+    console.log(request.data.data);//działa
   })
   .catch((error) => {
     console.log('Error, trzeba poprawiac :/ ' + error);
   });
 
-
+  return {
+    type: GET_USER_TABLES,
+    payload: request
+  };
 }
 
 //------------------------------------
