@@ -10,24 +10,23 @@ class GetUserTables extends Component {
   componentDidMount() {
     let cookieEmail = showCookie("cookieEmail");
     let cookieToken = showCookie("cookieToken");
-    console.log('Wartość cookieEmail c: ', cookieEmail);
-    console.log('Wartość cookieToken c: ', cookieToken);
-    console.log('Wywołuje się GetUserTables')
+    // console.log('Wartość cookieEmail c: ', cookieEmail); //działa dobrze 18_05
+    // console.log('Wartość cookieToken c: ', cookieToken); //działa dobrze 18_05
+    // console.log('Wywołuje się GetUserTables') //działa dobrze 18_05
+        console.log('didMount')
     this.props.getUserTables(cookieEmail, cookieToken)
-    //this.props.getUserTables();
-    //this.props.values;
-
   }
 
-  // fetchTables() {
-  //   return _.map(this.props.tables, table => {
-  //        return (
-  //          <li className="list-group-item" key={table.id}>
-  //              {table.name}
-  //          </li>
-  //        );
-  //      });
-  // }
+  fetchTables() {
+    console.log('fetchTables:', this.props.tables.promise)
+    // return _.map(this.props.tables.data, table => {
+    //      return (
+    //        <li className="list-group-item" key={table.id}>
+    //            {table.name}
+    //        </li>
+    //      );
+    //    });
+  }
 
 //{this.fetchTables()}
 
@@ -35,6 +34,7 @@ class GetUserTables extends Component {
   //   this.getUserTables(email, authentication_token)
   // }
       //{this.fetchTables()}
+
   render() {
     return (
       <div>
@@ -43,6 +43,11 @@ class GetUserTables extends Component {
           <Link className="btn btn-primary" to="/create-table">
             Pokaż wszystkie tablice
           </Link>
+          <h3>Posts</h3>
+          <ul className="list-group">
+            {this.fetchTables()}
+          </ul>
+
       </div>
     );
   }

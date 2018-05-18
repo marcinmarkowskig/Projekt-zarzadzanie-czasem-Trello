@@ -34,6 +34,8 @@
     "react-router": "^2.0.1",
     "react-router-dom": "^4.0.0",
     "redux": "4.0.0",
-    "redux-form": "^6.6.3"
+    "redux-form": "^6.6.3",
+    "redux-promise-middleware": "^5.1.1",
+    "redux-thunk": "file:node_modules\\redux-thunk"
   }
 }

@@ -24,15 +24,10 @@ class SignIn extends Component {
     );
   }
 
-  // onSubmit(values) {
-  //   this.props.signIn(values)
-  // }
-
   onSubmit(values) {
     this.props.signIn(values, () => {
       this.props.history.push('/get-user-tables');
     });
-    //export default (values)
   }
 
   render() {

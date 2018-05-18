@@ -14,10 +14,26 @@ import GetUserTables from './components/get_user_tables';
 import SignIn from './components/sign_in';
 
 import reducers from './reducers';
-
+import promiseMiddleware from 'redux-promise-middleware';
 //---
+import thunk from 'redux-thunk';
+import rootReducer from './reducers/index';
 
+const store2 = createStore(
+  rootReducer,
+  applyMiddleware(thunk)
+);
 //----
+
+
+
+const store = createStore(
+  rootReducer,
+  { isLoading: false, isError: false, repositories: [] },
+  applyMiddleware(promiseMiddleware())
+);
+
+//-----------
 const createStoreWithMiddleware = applyMiddleware(promise)(createStore);
 
 ReactDOM.render(
