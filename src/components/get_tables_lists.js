@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { getTablesLists } from '../actions';
+import { createList } from '../actions';
 
 class GetTablesLists extends Component {
   componentDidMount() {
@@ -14,7 +15,7 @@ class GetTablesLists extends Component {
   }
 
   fetchLists() {
-      console.log('fetchLists get_tables_lists.js:', this.props.tables )
+      // console.log('fetchLists get_tables_lists.js:', this.props.tables )
       return _.map(this.props.tables, list => {
         return (
           <li className="list-group-item" key={list.id}>
@@ -27,15 +28,23 @@ class GetTablesLists extends Component {
     );
   }
 
+  post() {
+    const { id } = this.props.match.params;//możemy to napisac dzięki React-Router; z adresu url pobieramy id ( z wildcarda /:id)
+    return id
+  }
+
   render() {
-    //this.props===ownProps;
     const { list } = this.props;
 
     return (
       <div>
         <h3>Lists:</h3>
         <ul className="list-group">
+          {/* {this.post()} */}
           {this.fetchLists()}
+            <Link className="btn btn-primary" to={`/get-tables-lists/${this.post()}/create-list`}>
+              Utwórz nową listę
+            </Link>
         </ul>
       </div>
     );

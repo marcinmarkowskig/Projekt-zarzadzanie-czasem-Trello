@@ -9,6 +9,7 @@ import promise from 'redux-promise';
 //import Tables from './components/tables';
 import GetUserGroups from './components/get_user_groups';
 import GetTablesLists from './components/get_tables_lists';
+import CreateList from './components/create_list';
 import CreateTable from './components/create_table';
 import CreateUser from './components/create_user';
 import GetUserTables from './components/get_user_tables';
@@ -43,6 +44,7 @@ ReactDOM.render(
        <Switch>
          <Route path="/create-user" component={CreateUser} />
          <Route path="/get-user-tables" component={GetUserTables} />
+         <Route path="/get-tables-lists/:id/create-list" component={CreateList} />
          <Route path="/get-tables-lists/:id" component={GetTablesLists} />
          <Route path="/" component={SignIn}/>
        </Switch>
