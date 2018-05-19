@@ -5,61 +5,43 @@ import { getUserTables, createTable, signIn } from '../actions';
 import { Link } from 'react-router-dom';
 
 class GetUserTables extends Component {
-  //te dwie rzeczy poniżej są dobrze
-
   componentDidMount() {
     let cookieEmail = showCookie("cookieEmail");
     let cookieToken = showCookie("cookieToken");
-    // console.log('Wartość cookieEmail c: ', cookieEmail); //działa dobrze 18_05
-    // console.log('Wartość cookieToken c: ', cookieToken); //działa dobrze 18_05
-    // console.log('Wywołuje się GetUserTables') //działa dobrze 18_05
-        console.log('didMount')
-    this.props.getUserTables(cookieEmail, cookieToken)
+    this.props.getUserTables(cookieEmail, cookieToken)//służy do zapamiątania emaili i tokenów
   }
 
   fetchTables() {
-    console.log('fetchTables:', this.props.tables.promise)
-    // return _.map(this.props.tables.data, table => {
-    //      return (
-    //        <li className="list-group-item" key={table.id}>
-    //            {table.name}
-    //        </li>
-    //      );
-    //    });
+      console.log('fetchTables get_user_tables.js:', this.props.tables )
+      return _.map(this.props.tables, table => {
+        return (
+          <li className="list-group-item" key={table.id}>
+            {table.name}
+          </li>
+        );
+      }
+    );
   }
-
-//{this.fetchTables()}
-
-  // fetchTables() {
-  //   this.getUserTables(email, authentication_token)
-  // }
-      //{this.fetchTables()}
 
   render() {
     return (
       <div>
         <h3>Tablice:</h3>
-
-          <Link className="btn btn-primary" to="/create-table">
-            Pokaż wszystkie tablice
-          </Link>
-          <h3>Posts</h3>
           <ul className="list-group">
             {this.fetchTables()}
           </ul>
-
       </div>
     );
   }
 }
-
+// {this.fetchTables()} //służy do wyświetlenia tablic
 function mapStateToProps(state) {
   return { tables: state.tables };
 }
 
 export default connect(mapStateToProps, { getUserTables, signIn })(GetUserTables);
 
-function showCookie(name) {
+function showCookie(name) {//służy do pokazania w zakładce Application w konsoli nazw emaili i tokenów zapamiętanych w ciasteczkach
     if (document.cookie != "") {
         const cookies = document.cookie.split(/; */);
 

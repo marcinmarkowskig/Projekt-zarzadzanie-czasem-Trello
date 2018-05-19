@@ -46,15 +46,11 @@ export function signIn(values, callback, dane) {
 
   let request2 = axios.post('http://kanban-project-management-api.herokuapp.com/v1/sessions', values, axiosConfig)
   .then(request2 => {
-    console.log('signIn:'),
-    console.log(request2.data.data.user)//działa dobrze
+    console.log('signIn ac:', request2.data.data.user)//działa dobrze
   //  getUserTables(request2.data.data.user.email, request2.data.data.user.authentication_token),
-        setCookie('cookieEmail', request2.data.data.user.email),
-        setCookie('cookieToken', request2.data.data.user.authentication_token),
-
-    //ab = request2.data.data.user,
+    setCookie('cookieEmail', request2.data.data.user.email),
+    setCookie('cookieToken', request2.data.data.user.authentication_token),
     callback()
-  //  dane=request2.data.data.user
 })
   .catch((error) => {
     console.log('Error, trzeba poprawiac :/ ' + error);
@@ -68,6 +64,7 @@ export function signIn(values, callback, dane) {
 
 //------------------------------------
 
+//WSZYSTKO ZAKOMENTOWANE PONIŻEJ ODNOSI SIĘ DO getUserTables
 // export function getUserTables(email, authentication_token) {
 //   console.log('getUserTables ac:', email)//działa dobrze
 //   console.log('getUserTables ac:', authentication_token)//działa dobrze
@@ -153,34 +150,27 @@ export function signIn(values, callback, dane) {
 // export const GET_USER_TABLES_FULFILLED = 'GET_USER_TABLES_FULFILLED';
 // export const GET_USER_TABLES_REJECTED = 'GET_USER_TABLES_REJECTED';
 
+//--------------------------------------------------
+
 export function getUserTables(email, authentication_token) {
-  // console.log('getUserTables ac:', email)//działa dobrze 18_05
-  // console.log('getUserTables ac:', authentication_token)//działa dobrze 18_05
-console.log('ac')
+
        let axiosConfig = {
          headers: {
            'X-User-Email': email,
            'X-User-Token': authentication_token
          }
        };
+
+  let request = axios.get('http://kanban-project-management-api.herokuapp.com/v1/tables', axiosConfig)
+
   return {
-   type: GET_USER_TABLES,
-    payload: {
-      promise: axios.get('http://kanban-project-management-api.herokuapp.com/v1/tables',axiosConfig)
-      .then (response =>  {
-           return {
-            // type: GET_USER_TABLES,
-             payload: response.data
-        };
-      })
-    }
-  };
+    type: GET_USER_TABLES,
+    payload: request
+  }
 }
 
-
- // (response, console.log('Zwracany response ac:', response))
-// response => console.log('Zwracany response.data ac:', response.data
 //------------------------------------
+
 export function getUserGroups() {
   let axiosConfig = {
     headers: {
