@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { GET_USER_TABLES, GET_USER_GROUPS, SIGN_IN, GET_USER_TABLES_PENDING, GET_USER_TABLES_FULFILLED, GET_USER_TABLES_REJECTED } from '../actions';
+import { GET_USER_TABLES, GET_USER_GROUPS, SIGN_IN, GET_TABLES_LISTS } from '../actions';
 import * as actions from '../actions';
 
 export default function(state = {}, action) {
@@ -18,9 +18,12 @@ export default function(state = {}, action) {
 // case actions.GET_USER_TABLES_REJECTED:
 //     console.log( {...state} )
 //     return { ...state, isLoading: false, isError: true }
-    return _.mapKeys(action.payload.data.data, 'id')
+      console.log('action: reducer', action.payload.data.data)
+    return _.mapKeys(action.payload.data.data, 'id');
 
-
+    case GET_TABLES_LISTS:
+      console.log('action: reducer', action.payload.data.data)
+    return _.mapKeys(action.payload.data.data, 'id');
     default:
       return state;
   }

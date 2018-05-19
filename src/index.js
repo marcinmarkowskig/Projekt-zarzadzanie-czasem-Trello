@@ -6,8 +6,9 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import promise from 'redux-promise';
 
 //import CreateUser from './components/create_user';
-import Tables from './components/tables';
+//import Tables from './components/tables';
 import GetUserGroups from './components/get_user_groups';
+import GetTablesLists from './components/get_tables_lists';
 import CreateTable from './components/create_table';
 import CreateUser from './components/create_user';
 import GetUserTables from './components/get_user_tables';
@@ -19,19 +20,18 @@ import promiseMiddleware from 'redux-promise-middleware';
 import thunk from 'redux-thunk';
 import rootReducer from './reducers/index';
 
-const store2 = createStore(
-  rootReducer,
-  applyMiddleware(thunk)
-);
+// const store2 = createStore(
+//   rootReducer,
+//   applyMiddleware(thunk)
+// );
+
 //----
 
-
-
-const store = createStore(
-  rootReducer,
-  { isLoading: false, isError: false, repositories: [] },
-  applyMiddleware(promiseMiddleware())
-);
+// const store = createStore(
+//   rootReducer,
+//   { isLoading: false, isError: false, repositories: [] },
+//   applyMiddleware(promiseMiddleware())
+// );
 
 //-----------
 const createStoreWithMiddleware = applyMiddleware(promise)(createStore);
@@ -41,10 +41,9 @@ ReactDOM.render(
     <BrowserRouter>
      <div>
        <Switch>
-
          <Route path="/create-user" component={CreateUser} />
-<Route path="/get-user-tables" component={GetUserTables} />
-<Route path="/tables" component={Tables} />
+         <Route path="/get-user-tables" component={GetUserTables} />
+         <Route path="/get-tables-lists/:id" component={GetTablesLists} />
          <Route path="/" component={SignIn}/>
        </Switch>
      </div>

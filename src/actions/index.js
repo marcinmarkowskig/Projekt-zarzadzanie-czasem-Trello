@@ -3,6 +3,7 @@ import axios from 'axios';
 
 export const CREATE_USER = 'create_user';
 export const GET_USER_GROUPS = 'get_user_groups';
+export const GET_TABLES_LISTS= 'get_tables_lists';
 
 export const GET_USER_TABLES = 'get_user_tables';
 export const SIGN_IN = 'sign_in';
@@ -50,8 +51,7 @@ export function signIn(values, callback, dane) {
   //  getUserTables(request2.data.data.user.email, request2.data.data.user.authentication_token),
     setCookie('cookieEmail', request2.data.data.user.email),
     setCookie('cookieToken', request2.data.data.user.authentication_token),
-    callback()
-})
+    callback() })
   .catch((error) => {
     console.log('Error, trzeba poprawiac :/ ' + error);
   });
@@ -171,6 +171,24 @@ export function getUserTables(email, authentication_token) {
 
 //------------------------------------
 
+export function getTablesLists(table_id, cookieEmail, cookieToken) {
+console.log('getTablesLists ac:')
+  let axiosConfig = {
+    headers: {
+      'X-User-Email': cookieEmail,
+      'X-User-Token': cookieToken
+    }
+  };
+
+ let request = axios.get(`http://kanban-project-management-api.herokuapp.com/v1/tables/${table_id}/lists`, axiosConfig)
+
+ return {
+   type: GET_TABLES_LISTS,
+   payload: request
+ }
+}
+
+//------------------------------------
 export function getUserGroups() {
   let axiosConfig = {
     headers: {
