@@ -43,6 +43,7 @@ ReactDOM.render(
      <div>
        <Switch>
          <Route path="/create-user" component={CreateUser} />
+         <Route path="/create-table" component={CreateTable} />
          <Route path="/get-user-tables" component={GetUserTables} />
          <Route path="/get-tables-lists/:id/create-list" component={CreateList} />
          <Route path="/get-tables-lists/:id" component={GetTablesLists} />

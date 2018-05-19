@@ -38,12 +38,28 @@ class GetTablesLists extends Component {
 
     return (
       <div>
+        <div id="navbar">
+          <a href="#home">Home</a>
+          <a href="#news">News</a>
+          <a href="#contact">Contact</a>
+          {/* <a href="#" onClick={this.signOut2}>
+            Click me
+          </a> */}
+          <Link id='block' to="/">
+          <div>
+            Wyloguj się
+          </div>
+          </Link>
+        </div>
         <h3>Lists:</h3>
         <ul className="list-group">
           {/* {this.post()} */}
           {this.fetchLists()}
             <Link className="btn btn-primary" to={`/get-tables-lists/${this.post()}/create-list`}>
               Utwórz nową listę
+            </Link>
+            <Link className="btn btn-danger" to={`/get-user-tables`}>
+              Anuluj
             </Link>
         </ul>
       </div>

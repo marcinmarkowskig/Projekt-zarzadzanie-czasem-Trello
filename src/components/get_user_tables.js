@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import { getUserTables, createTable, signIn } from '../actions';
+import { getUserTables, createTable, signIn, signOut } from '../actions';
 import { Link } from 'react-router-dom';
 
 class GetUserTables extends Component {
@@ -25,13 +25,38 @@ class GetUserTables extends Component {
     );
   }
 
+  // signOut2() {
+  //   console.log('Sign out')
+  //   let cookieEmail = showCookie("cookieEmail")
+  //   let cookieToken = showCookie("cookieToken")
+  //   this.props.signOut( cookieEmail, cookieToken  , () => {
+  //       this.props.history.push('/');
+  //     });
+  // }
+
   render() {
     return (
       <div>
+        <div id="navbar">
+          <a href="#home">Home</a>
+          <a href="#news">News</a>
+          <a href="#contact">Contact</a>
+          {/* <a href="#" onClick={this.signOut2}>
+            Click me
+          </a> */}
+          <Link id='block' to="/">
+          <div>
+            Wyloguj się
+          </div>
+          </Link>
+        </div>
         <h3>Tablice:</h3>
           <ul className="list-group">
             {this.fetchTables()}
           </ul>
+          <Link className="btn btn-primary" to="/create-table">
+            Utwórz nową tablicę
+          </Link>
       </div>
     );
   }
@@ -41,7 +66,7 @@ function mapStateToProps(state) {
   return { tables: state.tables };
 }
 
-export default connect(mapStateToProps, { getUserTables, signIn })(GetUserTables);
+export default connect(mapStateToProps, { getUserTables, createTable, signIn, signOut })(GetUserTables);
 
 function showCookie(name) {//służy do pokazania w zakładce Application w konsoli nazw emaili i tokenów zapamiętanych w ciasteczkach
     if (document.cookie != "") {

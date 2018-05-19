@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { GET_USER_TABLES, GET_USER_GROUPS, SIGN_IN, GET_TABLES_LISTS } from '../actions';
+import { GET_USER_TABLES, GET_USER_GROUPS, SIGN_IN, GET_TABLES_LISTS, SIGN_OUT, CREATE_TABLE } from '../actions';
 import * as actions from '../actions';
 
 export default function(state = {}, action) {
@@ -24,6 +24,13 @@ export default function(state = {}, action) {
     case GET_TABLES_LISTS:
       console.log('action: reducer', action.payload.data.data)
     return _.mapKeys(action.payload.data.data, 'id');
+    //NIE DZIAŁA COMPONENT signOut, więc to jest niepotrzebne
+    // case SIGN_OUT:
+    // console.log('a')
+    //   return state
+    case CREATE_TABLE:
+      console.log(action);
+      return state
     default:
       return state;
   }

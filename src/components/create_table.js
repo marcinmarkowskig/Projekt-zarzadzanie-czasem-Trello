@@ -25,7 +25,9 @@ class CreateTable extends Component {
   }
 
   onSubmit(values) {
-    this.props.createTable(values, () => {
+    let cookieEmail = showCookie("cookieEmail");
+    let cookieToken = showCookie("cookieToken");
+    this.props.createTable(values, cookieEmail, cookieToken, () => {
       this.props.history.push('/get-user-tables');
     });
   }
@@ -73,3 +75,17 @@ export default reduxForm({
 })(
     connect(null,{ createTable })(CreateTable)
 );
+
+function showCookie(name) {//służy do pokazania w zakładce Application w konsoli nazw emaili i tokenów zapamiętanych w ciasteczkach
+    if (document.cookie != "") {
+        const cookies = document.cookie.split(/; */);
+
+        for (let i=0; i<cookies.length; i++) {
+            const cookieName = cookies[i].split("=")[0];
+            const cookieVal = cookies[i].split("=")[1];
+            if (cookieName === decodeURIComponent(name)) {
+                return decodeURIComponent(cookieVal);
+            }
+        }
+    }
+}

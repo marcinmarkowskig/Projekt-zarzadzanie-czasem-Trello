@@ -5,6 +5,7 @@ export const CREATE_USER = 'create_user';
 export const GET_USER_GROUPS = 'get_user_groups';
 export const GET_TABLES_LISTS= 'get_tables_lists';
 export const CREATE_LIST= 'create_list';
+export const SIGN_OUT= 'sign_out';
 
 export const GET_USER_TABLES = 'get_user_tables';
 export const SIGN_IN = 'sign_in';
@@ -217,6 +218,33 @@ export function createList(values, callback, table_id, cookieEmail, cookieToken)
 }
 
 //------------------------------------
+//NIE DZIAŁA PRAWIDŁOWO 19_05
+// export function signOut( cookieEmail, cookieToken, callback ) {
+//
+//   let axiosConfig = {
+//     headers: {
+//       'Content-Type': 'application/json',
+//       'X-User-Email': cookieEmail,
+//       'X-User-Token': cookieToken
+//     }
+//   };
+//
+//   let request3 = axios.delete('http://kanban-project-management-api.herokuapp.com/v1/sessions', axiosConfig)
+//   .then(request3 => {
+//     console.log('signOut ac:', request3),//działa dobrze
+//   //  getUserTables(request2.data.data.user.email, request2.data.data.user.authentication_token),
+//    callback() })
+//   .catch((error) => {
+//     console.log('Error, trzeba poprawiac :/ ' + error);
+//   });
+//
+//   return {
+//     type: SIGN_OUT,
+//     payload: request3
+//   };
+// }
+
+//------------------------------------
 export function getUserGroups() {
   let axiosConfig = {
     headers: {
@@ -245,35 +273,37 @@ export function getUserGroups() {
   };
 }
 //------------------------------------
-export function createTable(values, callback) {
+export function createTable(values, cookieEmail, cookieToken, callback) {
+  console.log('jestem tu ac')
   let a = values.name
   let axiosConfig = {
     headers: {
       'Content-Type': 'application/json',
-      'X-User-Email': 'romek1111@gmail.com',
-      'X-User-Token': 'KQNeD2vhWnqDxcfy6RBa'
+      'X-User-Email': cookieEmail,
+      'X-User-Token': cookieToken
     }
   };
 
   let data = {
     name: a,
-    is_private: false,
+    is_private: true,
   }
+  console.log(data)
 // console.log(data)
 //   let data2={
 // 	"name": "test table2",
 // 	"is_private": false
 //   }
 //console.log(data2)
-  let request = axios.post('http://kanban-project-management-api.herokuapp.com/v1/tables', data2, axiosConfig)
+  let request2 = axios.post('http://kanban-project-management-api.herokuapp.com/v1/tables', data, axiosConfig)
   .then(() => callback())
   .catch((error) => {
     console.log('Error, trzeba poprawiac :/ ' + error);
   });
-console.log(request)
+console.log(request2)
   return {
     type: CREATE_TABLE,
-    payload: request
+    payload: request2
   };
 }
 //------------------------------------
