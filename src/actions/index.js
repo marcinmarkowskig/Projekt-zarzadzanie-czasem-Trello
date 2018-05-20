@@ -2,10 +2,12 @@
 import axios from 'axios';
 
 export const CREATE_USER = 'create_user';
+export const CREATE_GROUP = 'create_group';
 export const GET_USER_GROUPS = 'get_user_groups';
-export const GET_TABLES_LISTS= 'get_tables_lists';
-export const CREATE_LIST= 'create_list';
-export const SIGN_OUT= 'sign_out';
+export const GET_TABLES_LISTS = 'get_tables_lists';
+export const CREATE_LIST = 'create_list';
+export const SIGN_OUT = 'sign_out';
+export const DELETE_TABLE = 'delete_table';
 
 export const GET_USER_TABLES = 'get_user_tables';
 export const SIGN_IN = 'sign_in';
@@ -245,36 +247,8 @@ export function createList(values, callback, table_id, cookieEmail, cookieToken)
 // }
 
 //------------------------------------
-export function getUserGroups() {
-  let axiosConfig = {
-    headers: {
-      'X-User-Email': 'romek1111@gmail.com',
-      'X-User-Token': 'KQNeD2vhWnqDxcfy6RBa'
-    }
-  };
-
-  let request = axios.get('http://kanban-project-management-api.herokuapp.com/v1/groups',axiosConfig)
-  //let request2 = request.data.data
-  //let a;
-  .then(request => {
-    console.log(request.data);
-    //a = request.data.data;
-  })
-  .catch((error) => {
-    console.log('Error, trzeba poprawiac :/ ' + error);
-  });
-
-  if (!request) {
-    return <div>Loading...</div>
-  }
-  return {
-    type: GET_USER_GROUPS,
-    payload: request
-  };
-}
-//------------------------------------
+//DZIAŁA
 export function createTable(values, cookieEmail, cookieToken, callback) {
-  console.log('jestem tu ac')
   let a = values.name
   let axiosConfig = {
     headers: {
@@ -289,26 +263,88 @@ export function createTable(values, cookieEmail, cookieToken, callback) {
     is_private: true,
   }
   console.log(data)
-// console.log(data)
-//   let data2={
-// 	"name": "test table2",
-// 	"is_private": false
-//   }
-//console.log(data2)
   let request2 = axios.post('http://kanban-project-management-api.herokuapp.com/v1/tables', data, axiosConfig)
   .then(() => callback())
   .catch((error) => {
-    console.log('Error, trzeba poprawiac :/ ' + error);
-  });
-console.log(request2)
+    console.log('Error, trzeba poprawiac :/ ' + error);});
+    console.log(request2)
   return {
     type: CREATE_TABLE,
     payload: request2
   };
 }
+
 //------------------------------------
+//DZIAŁA
+export function deleteTable(table_id, cookieEmail, cookieToken, callback) {
+  console.log('jestem tu delete ac')
+  let axiosConfig = {
+    headers: {
+      'Content-Type': 'application/json',
+      'X-User-Email': cookieEmail,
+      'X-User-Token': cookieToken
+    }
+  };
 
+  let request3 = axios.delete(`http://kanban-project-management-api.herokuapp.com/v1/tables/${table_id}`, axiosConfig)
+  .then(() => callback())
+  .catch((error) => {
+    console.log('Error, trzeba poprawiac :/ ' + error);
+  });
+console.log(request3)
+  return {
+    type: DELETE_TABLE,
+    payload: request3
+  };
+}
 
+//------------------------------------
+//DZIAŁA
+export function getUserGroups(cookieEmail, cookieToken) {
+  let axiosConfig = {
+    headers: {
+      'X-User-Email': cookieEmail,
+      'X-User-Token': cookieToken
+    }
+  };
+
+  let request = axios.get('http://kanban-project-management-api.herokuapp.com/v1/groups',axiosConfig)
+
+  return {
+    type: GET_USER_GROUPS,
+    payload: request
+  };
+}
+
+//------------------------------------
+//DZIAŁA
+export function createGroup(values, cookieEmail, cookieToken, callback) {
+  let axiosConfig = {
+    headers: {
+      'Content-Type': 'application/json',
+      'X-User-Email': cookieEmail,
+      'X-User-Token': cookieToken
+    }
+  };
+
+  let data = {
+    "name": values.group_name
+  }
+
+  let request = axios.post('http://kanban-project-management-api.herokuapp.com/v1/groups', data, axiosConfig)
+
+  .then(() => callback())
+  .catch((error) => {
+    console.log('Error, trzeba poprawiac :/ ' + error);
+  });
+
+  return {
+    type: CREATE_GROUP,
+    payload: request
+  };
+}
+
+//--------------------------------------
 // function asyncStart(){
 //    return { type:'ASYNC_REQUEST' };
 // }

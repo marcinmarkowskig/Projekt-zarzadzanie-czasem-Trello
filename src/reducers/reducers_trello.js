@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { GET_USER_TABLES, GET_USER_GROUPS, SIGN_IN, GET_TABLES_LISTS, SIGN_OUT, CREATE_TABLE } from '../actions';
+import { GET_USER_TABLES, GET_USER_GROUPS, SIGN_IN, GET_TABLES_LISTS, SIGN_OUT, CREATE_TABLE, DELETE_TABLE } from '../actions';
 import * as actions from '../actions';
 
 export default function(state = {}, action) {
@@ -28,9 +28,10 @@ export default function(state = {}, action) {
     // case SIGN_OUT:
     // console.log('a')
     //   return state
-    case CREATE_TABLE:
-      console.log(action);
-      return state
+    case DELETE_TABLE:
+      return _.omit(state, action.payload);
+    case GET_USER_GROUPS:
+      return _.mapKeys(action.payload.data.data, 'id')
     default:
       return state;
   }

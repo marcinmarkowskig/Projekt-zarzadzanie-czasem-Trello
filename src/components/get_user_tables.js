@@ -41,6 +41,7 @@ class GetUserTables extends Component {
           <a href="#home">Home</a>
           <a href="#news">News</a>
           <a href="#contact">Contact</a>
+          <Link to="/get-user-groups">Grupy</Link>
           {/* <a href="#" onClick={this.signOut2}>
             Click me
           </a> */}

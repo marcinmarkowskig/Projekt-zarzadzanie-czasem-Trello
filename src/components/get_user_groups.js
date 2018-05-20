@@ -6,43 +6,54 @@ import { Link } from 'react-router-dom';
 
 class GetUserGroups extends Component {
   componentDidMount() {
-    this.props.getUserGroups();
+    let cookieEmail = showCookie("cookieEmail");
+    let cookieToken = showCookie("cookieToken");
+    this.props.getUserGroups(cookieEmail, cookieToken);
   }
 
-  fetchTables() {
-    return _.map(this.props.groups, group => {
+  fetchGroups() {
+    return _.map(this.props.tables, table => {
          return (
-           <li className="list-group-item" key={group.id}>
-               {group.name}
+           <li className="list-group-item" key={table.id}>
+             {table.name}
            </li>
          );
        });
   }
 
-//{this.fetchTables()}
   render() {
     return (
       <div>
-        <h3>Tablice:</h3>
-          {this.fetchTables()}
-          <Link className="btn btn-danger" to="/create-table">
-            {fetchTables()}
+        <h3>Grupy:</h3>
+          {this.fetchGroups()}
+          <Link className="btn btn-primary" to="/get-user-tables">
+            Powrót
+          </Link>
+          <Link className="btn btn-primary" to="/create-group">
+            Utwórz grupę
           </Link>
       </div>
     );
   }
-//{this.fetchTables()}
-  render() {
-    return (
-      <div>
-        <h3>Tablice:</h3>
-      </div>
-    );
-  }
 }
 
+
 function mapStateToProps(state) {
-  return { groups: state.groups };
+  return { tables: state.tables };
 }
 
 export default connect(mapStateToProps, { getUserGroups })(GetUserGroups);
+
+function showCookie(name) {//służy do pokazania w zakładce Application w konsoli nazw emaili i tokenów zapamiętanych w ciasteczkach
+    if (document.cookie != "") {
+        const cookies = document.cookie.split(/; */);
+
+        for (let i=0; i<cookies.length; i++) {
+            const cookieName = cookies[i].split("=")[0];
+            const cookieVal = cookies[i].split("=")[1];
+            if (cookieName === decodeURIComponent(name)) {
+                return decodeURIComponent(cookieVal);
+            }
+        }
+    }
+}

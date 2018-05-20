@@ -2,16 +2,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { getTablesLists } from '../actions';
-import { createList } from '../actions';
+import { createList, deleteTable  } from '../actions';
 
 class GetTablesLists extends Component {
   componentDidMount() {
-    //if(!this.props.post) { - opcja
     let cookieEmail = showCookie("cookieEmail");
     let cookieToken = showCookie("cookieToken");
     const { id } = this.props.match.params;//możemy to napisac dzięki React-Router; z adresu url pobieramy id ( z wildcarda /:id)
     this.props.getTablesLists(id, cookieEmail, cookieToken);
-    //}
   }
 
   fetchLists() {
@@ -33,6 +31,15 @@ class GetTablesLists extends Component {
     return id
   }
 
+  onDeleteClick(table_id) {
+    let cookieEmail = showCookie("cookieEmail");
+    let cookieToken = showCookie("cookieToken");
+    console.log(table_id)
+    this.props.deleteTable(table_id, cookieEmail, cookieToken, () => {
+      this.props.history.push('/get-user-tables');
+    });
+  }
+
   render() {
     const { list } = this.props;
 
@@ -51,6 +58,12 @@ class GetTablesLists extends Component {
           </div>
           </Link>
         </div>
+        <button
+          className="btn btn-danger pull-xs-right"
+          onClick={this.onDeleteClick.bind(this, this.post())}
+        >
+          Usuń tablicę
+        </button>
         <h3>Lists:</h3>
         <ul className="list-group">
           {/* {this.post()} */}
@@ -71,7 +84,7 @@ function mapStateToProps({ tables }) { //{posts} to application state
   return { tables: tables};
 }
 
-export default connect(mapStateToProps, { getTablesLists })(GetTablesLists);
+export default connect(mapStateToProps, { getTablesLists, deleteTable })(GetTablesLists);
 
 function showCookie(name) {//służy do pokazania w zakładce Application w konsoli nazw emaili i tokenów zapamiętanych w ciasteczkach
     if (document.cookie != "") {

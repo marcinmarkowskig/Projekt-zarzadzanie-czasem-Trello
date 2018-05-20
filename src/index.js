@@ -7,12 +7,13 @@ import promise from 'redux-promise';
 
 //import CreateUser from './components/create_user';
 //import Tables from './components/tables';
-import GetUserGroups from './components/get_user_groups';
+import GetUserTables from './components/get_user_tables';
 import GetTablesLists from './components/get_tables_lists';
+import GetUserGroups from './components/get_user_groups';
 import CreateList from './components/create_list';
 import CreateTable from './components/create_table';
 import CreateUser from './components/create_user';
-import GetUserTables from './components/get_user_tables';
+import CreateGroup from './components/create_group';
 import SignIn from './components/sign_in';
 
 import reducers from './reducers';
@@ -44,6 +45,8 @@ ReactDOM.render(
        <Switch>
          <Route path="/create-user" component={CreateUser} />
          <Route path="/create-table" component={CreateTable} />
+         <Route path="/create-group" component={CreateGroup} />
+         <Route path="/get-user-groups" component={GetUserGroups} />
          <Route path="/get-user-tables" component={GetUserTables} />
          <Route path="/get-tables-lists/:id/create-list" component={CreateList} />
          <Route path="/get-tables-lists/:id" component={GetTablesLists} />
