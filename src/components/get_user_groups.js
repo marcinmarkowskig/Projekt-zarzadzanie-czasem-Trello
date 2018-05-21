@@ -12,10 +12,13 @@ class GetUserGroups extends Component {
   }
 
   fetchGroups() {
+    console.log('fetchGroups.js: ', this.props.tables)
     return _.map(this.props.tables, table => {
          return (
            <li className="list-group-item" key={table.id}>
-             {table.name}
+             <Link to={`/show-group/${table.id}`}>
+               {table.name}
+             </Link>
            </li>
          );
        });

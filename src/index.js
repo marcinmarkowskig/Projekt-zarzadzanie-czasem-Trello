@@ -8,6 +8,7 @@ import promise from 'redux-promise';
 //import CreateUser from './components/create_user';
 //import Tables from './components/tables';
 import GetUserTables from './components/get_user_tables';
+import ShowGroup from './components/show_group';
 import GetTablesLists from './components/get_tables_lists';
 import GetUserGroups from './components/get_user_groups';
 import CreateList from './components/create_list';
@@ -43,6 +44,7 @@ ReactDOM.render(
     <BrowserRouter>
      <div>
        <Switch>
+         <Route path="/show-group/:id" component={ShowGroup} />
          <Route path="/create-user" component={CreateUser} />
          <Route path="/create-table" component={CreateTable} />
          <Route path="/create-group" component={CreateGroup} />

@@ -8,6 +8,8 @@ export const GET_TABLES_LISTS = 'get_tables_lists';
 export const CREATE_LIST = 'create_list';
 export const SIGN_OUT = 'sign_out';
 export const DELETE_TABLE = 'delete_table';
+export const DELETE_GROUP = 'delete_group';
+export const SHOW_GROUP = 'show_group';
 
 export const GET_USER_TABLES = 'get_user_tables';
 export const SIGN_IN = 'sign_in';
@@ -345,6 +347,51 @@ export function createGroup(values, cookieEmail, cookieToken, callback) {
 }
 
 //--------------------------------------
+
+export function showGroup(group_id, cookieEmail, cookieToken) {
+console.log('showGroup ac:', group_id)
+  let axiosConfig = {
+    headers: {
+      'X-User-Email': cookieEmail,
+      'X-User-Token': cookieToken
+    }
+  };
+  console.log(axiosConfig)
+ let request = axios.get(`http://kanban-project-management-api.herokuapp.com/v1/groups/${group_id}`, axiosConfig)
+
+ return {
+   type: SHOW_GROUP,
+   payload: request
+ }
+}
+
+//-------------------------------------
+
+export function deleteGroup(group_id, cookieEmail, cookieToken, callback) {
+  console.log('jestem tu delete group ac')
+  let axiosConfig = {
+    headers: {
+      'Content-Type': 'application/json',
+      'X-User-Email': cookieEmail,
+      'X-User-Token': cookieToken
+    }
+  };
+
+  let request3 = axios.delete(`http://kanban-project-management-api.herokuapp.com/v1/groups/${group_id}`, axiosConfig)
+  .then(() => callback())
+  .catch((error) => {
+    console.log('Error, trzeba poprawiac :/ ' + error);
+  });
+console.log(request3)
+  return {
+    type: DELETE_GROUP,
+    payload: request3
+  };
+}
+
+//------------------------------------
+
+
 // function asyncStart(){
 //    return { type:'ASYNC_REQUEST' };
 // }
