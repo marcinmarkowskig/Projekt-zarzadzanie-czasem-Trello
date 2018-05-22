@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { showGroup, deleteGroup  } from '../actions';
 import ChangeLeader from './change_leader';
 import AddUser from './add_user';
+import RemoveUser from './remove_user';
 
 class ShowGroups extends Component {
   componentDidMount() {
@@ -23,20 +24,97 @@ class ShowGroups extends Component {
     console.log('aaa')
   }
 
-  showGroups() {
-      console.log('fetchLists show_group.js:', this.props.tables )
-        return _.map(this.props.tables, table => {
-// console.log('ta funkcja', _.mapKeys(table.members, 'id'));
-// let v =_.mapKeys(table.members, 'id')
-// console.log(v)
+  function() {
+    // return _.map(this.props.tables.leader, table => {
+    //     return (
+    //       <li className="list-group-item" key={table.id}>
+    //         {table.email}<p></p>
+    //       </li>
+    //     );
+    //   }
+    console.log('a')
+  }
+
+  showGroupsLeader() {
+    console.log('component:', this.props.tables )
+      return _.map(this.props.tables, table => {
+      console.log('table', table.leader)
+        return _.map(_.mapKeys(table, 'email'), lider => {
+          return (
+            <div>
+              {lider.id}
+              <p></p>
+            {lider.email}
+          </div>
+          );
+        }
+      );
+    }
+  )
+}
+      //
+      // showGroups() {
+      //     console.log('component:', this.props.tables )
+      //     return _.map(this.props.tables, table => {
+      //     console.log('table', table.leader)
+      //     return _.map(_.mapKeys(table, 'email'), lider => {
+      //     //console.log(lider.id)
+      //     return (<div>{lider.email}</div>);
+      //   });
+      //     //console.log((_.mapKeys(table.leader, 'id')))
+      //           return (
+      //             <li className="list-group-item" key={table.id}>
+      //
+      //             </li>
+      //           );
+      //         }
+      //       );
+      //     }
+
+
+
+  //   console.log('table', table.leader)
+  //       return _.map(table.leader, user_information => {
+  //         console.log(user_information)
+  showGroupsMembers() {
+      console.log('component:', this.props.tables )
+      return _.map(this.props.tables, table => {
+      console.log('table', table)
+          return _.map(_.mapKeys(table.members, 'id'), user_information => {
+            console.log('_.mapKeys(table.members', _.mapKeys(table.members, 'id'))
+            console.log('user_information', user_information)
             return (
-              <li className="list-group-item" key={table.id}>
-                {table.name}<p></p>
+              <li className="list-group-item" key={user_information.id}>
+                Id: {user_information.id}
+                <p></p>
+                Email: {user_information.email}
               </li>
             );
           }
-        );
-    }
+        )
+      }
+    );
+  }
+
+  // showGroups() {
+  //     console.log('component:', this.props.tables )
+  //     return _.map(this.props.tables, table => {
+  //     console.log('table', table)
+  //         return _.map(_.mapKeys(table.members, 'id'), user_information => {
+  //           console.log('_.mapKeys(table.members', _.mapKeys(table.members, 'id'))
+  //           console.log('user_information', user_information)
+  //           return (
+  //             <li className="list-group-item" key={user_information.id}>
+  //               Id: {user_information.id}
+  //               <p></p>
+  //               Email: {user_information.email}
+  //             </li>
+  //           );
+  //         }
+  //       )
+  //     }
+  //   );
+  // }
 
     groupId() {
       const { id } = this.props.match.params;//możemy to napisac dzięki React-Router; z adresu url pobieramy id ( z wildcarda /:id)
@@ -76,7 +154,8 @@ class ShowGroups extends Component {
 
         <h3>Grupy:</h3>
         <ul className="list-group">
-          {this.showGroups()}
+          {this.showGroupsLeader()}
+          {this.showGroupsMembers()}
             <Link className="btn btn-danger" to={`/get-user-groups`}>
               Anuluj
             </Link>
@@ -101,8 +180,9 @@ class ShowGroups extends Component {
           Dodaj użytkownika do grupy
         </button> */}
         <p></p>
-        <ChangeLeader id={id} history={history}/>
+        {/* <ChangeLeader id={id} history={history}/>
         <AddUser id={id}/>
+        <RemoveUser id={id}/> */}
       </div>
     );
   }

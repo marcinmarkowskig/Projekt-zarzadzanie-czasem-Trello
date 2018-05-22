@@ -12,6 +12,7 @@ export const DELETE_GROUP = 'delete_group';
 export const SHOW_GROUP = 'show_group';
 export const CHANGE_LEADER = 'change_leader';
 export const ADD_USER_TO_GROUP = 'add_user_to_group';
+export const REMOVE_USER = 'remove_user';
 
 export const GET_USER_TABLES = 'get_user_tables';
 export const SIGN_IN = 'sign_in';
@@ -334,7 +335,7 @@ export function createGroup(values, cookieEmail, cookieToken, callback) {
   let data = {
     "name": values.group_name
   }
-
+  console.log('create group', data)
   let request = axios.post('http://kanban-project-management-api.herokuapp.com/v1/groups', data, axiosConfig)
 
   .then(() => callback())
@@ -351,16 +352,16 @@ export function createGroup(values, cookieEmail, cookieToken, callback) {
 //--------------------------------------
 
 export function showGroup(group_id, cookieEmail, cookieToken) {
-console.log('showGroup ac:', group_id)
+
   let axiosConfig = {
     headers: {
       'X-User-Email': cookieEmail,
       'X-User-Token': cookieToken
     }
   };
-  console.log(axiosConfig)
- let request = axios.get(`http://kanban-project-management-api.herokuapp.com/v1/groups/${group_id}`, axiosConfig)
 
+ let request = axios.get(`http://kanban-project-management-api.herokuapp.com/v1/groups/${group_id}`, axiosConfig)
+ .then(console.log('request SHOW GROUP', request))
  return {
    type: SHOW_GROUP,
    payload: request
@@ -421,7 +422,6 @@ export function changeLeader(values, callback, group_id, cookieEmail, cookieToke
 }
 
 //------------------------------------
-
 //DZIAŁA
 export function addUser(values, callback, group_id, cookieEmail, cookieToken) {
   console.log('addUserToGroup ac', group_id)
@@ -451,6 +451,67 @@ export function addUser(values, callback, group_id, cookieEmail, cookieToken) {
 
 //--------------------------------------
 
+// export function removeUser(values, callback, group_id, cookieEmail, cookieToken) {
+//
+//   console.log('removeUser ac', group_id)
+//   console.log('values ac', values.user_id)
+//   console.log('cookieEmail', cookieEmail)
+//   console.log('cookieToken', cookieToken)
+//   let axiosConfig = {
+//     headers: {
+//       'Content-Type': 'application/json',
+//       'X-User-Email': cookieEmail,
+//       'X-User-Token': cookieToken
+//     }
+//   };
+//
+//   let values2 = {
+//     "user_id": 1
+//   }
+//   console.log('values2', values2)
+// console.log('axiosConfig', axiosConfig)
+//   let request3 = axios.delete(`http://kanban-project-management-api.herokuapp.com/v1/groups/${group_id}/remove_user_from_group`, values, axiosConfig)
+// //console.log(`http://kanban-project-management-api.herokuapp.com/v1/groups/${group_id}/remove_user_from_group`)
+//   .then(request3 => {
+//     console.log('removeUser ac:', request3),//działa dobrze
+//   //  getUserTables(request2.data.data.user.email, request2.data.data.user.authentication_token),
+//     callback() })
+//   .catch((error) => {
+//     console.log('Error, trzeba poprawiac :/ ' + error);
+//   });
+//
+//   return {
+//     type: REMOVE_USER,
+//     payload: request3
+//   };
+// }
+
+export function removeUser(values, callback, group_id, cookieEmail, cookieToken) {
+  console.log('remove user ac', group_id)
+  console.log('values ac', values)
+  let axiosConfig = {
+    headers: {
+      'Content-Type': 'application/json',
+      'X-User-Email': cookieEmail,
+      'X-User-Token': cookieToken
+    }
+  };
+
+  let request3 = axios.delete(`http://kanban-project-management-api.herokuapp.com/v1/groups/${group_id}/remove_user_from_group`, values, axiosConfig)
+  .then(request3 => {
+    console.log('remove user ac:', request3),
+  //  getUserTables(request2.data.data.user.email, request2.data.data.user.authentication_token),
+    callback() })
+  .catch((error) => {
+    console.log('Error, trzeba poprawiac :/ ' + error);
+  });
+
+  return {
+    type: REMOVE_USER,
+    payload: request3
+  };
+}
+//--------------------------------------
 // function asyncStart(){
 //    return { type:'ASYNC_REQUEST' };
 // }

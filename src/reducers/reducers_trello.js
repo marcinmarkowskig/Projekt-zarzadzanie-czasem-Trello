@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { GET_USER_TABLES, GET_USER_GROUPS, SIGN_IN, GET_TABLES_LISTS, SIGN_OUT, CREATE_TABLE, DELETE_TABLE, SHOW_GROUP, DELETE_GROUP } from '../actions';
+import { GET_USER_TABLES, GET_USER_GROUPS, SIGN_IN, GET_TABLES_LISTS, SIGN_OUT, CREATE_TABLE, DELETE_TABLE, SHOW_GROUP, DELETE_GROUP, REMOVE_USER } from '../actions';
 import * as actions from '../actions';
 
 export default function(state = {}, action) {
@@ -33,11 +33,14 @@ export default function(state = {}, action) {
     case GET_USER_GROUPS:
       return _.mapKeys(action.payload.data.data, 'id')
     case SHOW_GROUP:
-    console.log('reducer', action.payload.data.data)
+    console.log('reducer SHOW_GROUP', action.payload.data.data.group.members)
       return _.mapKeys(action.payload.data.data, 'id');
     case DELETE_GROUP:
     console.log('delete group',action.payload)
       return _.omit(state, action.payload);//(to co było dotychczas, to co usuwam)
+    case REMOVE_USER:
+    console.log('remove', action)
+      return _.omit(state, action.payload);
     default:
       return state;
   }
