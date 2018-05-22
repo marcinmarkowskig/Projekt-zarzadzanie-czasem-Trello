@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { showGroup, deleteGroup  } from '../actions';
+import ChangeLeader from './change_leader';
+import AddUser from './add_user';
 
 class ShowGroups extends Component {
   componentDidMount() {
@@ -36,7 +38,7 @@ class ShowGroups extends Component {
         );
     }
 
-    toDelete() {
+    groupId() {
       const { id } = this.props.match.params;//możemy to napisac dzięki React-Router; z adresu url pobieramy id ( z wildcarda /:id)
       return id
     }
@@ -49,9 +51,26 @@ class ShowGroups extends Component {
       });
     }
 
+//tę funkcję narazie zostawiam bibliotech
+    onChangeLeaderClick(group_id) {
+      //console.log('ffffffffff') działa
+
+        return (
+            <ChangeLeader />
+        );
+
+
+    }
+
+    onAddUserClick(group_id) {
+        return (
+            <AddUser />
+        );
+    }
+//
   render() {
     const { list } = this.props;
-
+    const { id } = this.props.match.params;//możemy to napisac dzięki React-Router; z adresu url pobieramy id ( z wildcarda /:id)
     return (
       <div>
 
@@ -64,10 +83,26 @@ class ShowGroups extends Component {
         </ul>
         <button
           className="btn btn-danger pull-xs-right"
-          onClick={this.onDeleteClick.bind(this, this.toDelete())}
+          onClick={this.onDeleteClick.bind(this, this.groupId())}
         >
           Usuń grupę
         </button>
+        {/* <button
+          className="btn btn-primary pull-xs-right"
+          onClick={this.onChangeLeaderClick.bind(this, this.groupId())}
+        >
+          Zmień lidera
+        </button>
+        <p></p>
+        <button
+          className="btn btn-primary pull-xs-right"
+          onClick={this.onAddUserClick.bind(this, this.groupId())}
+        >
+          Dodaj użytkownika do grupy
+        </button> */}
+        <p></p>
+        <ChangeLeader id={id} history={history}/>
+        <AddUser id={id}/>
       </div>
     );
   }

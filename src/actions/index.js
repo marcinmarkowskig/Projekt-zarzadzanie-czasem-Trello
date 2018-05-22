@@ -10,6 +10,8 @@ export const SIGN_OUT = 'sign_out';
 export const DELETE_TABLE = 'delete_table';
 export const DELETE_GROUP = 'delete_group';
 export const SHOW_GROUP = 'show_group';
+export const CHANGE_LEADER = 'change_leader';
+export const ADD_USER_TO_GROUP = 'add_user_to_group';
 
 export const GET_USER_TABLES = 'get_user_tables';
 export const SIGN_IN = 'sign_in';
@@ -366,7 +368,7 @@ console.log('showGroup ac:', group_id)
 }
 
 //-------------------------------------
-
+//DZIAŁA
 export function deleteGroup(group_id, cookieEmail, cookieToken, callback) {
   console.log('jestem tu delete group ac')
   let axiosConfig = {
@@ -391,6 +393,63 @@ console.log(request3)
 
 //------------------------------------
 
+//DZIAŁA, ale można zmieni, bo nie działa odświeżanie i wypróbowac poza tym na wprowadzanych innych id
+export function changeLeader(values, callback, group_id, cookieEmail, cookieToken) {
+  console.log('changeLeader ac', group_id)
+  console.log('values ac', values)
+  let axiosConfig = {
+    headers: {
+      'Content-Type': 'application/json',
+      'X-User-Email': cookieEmail,
+      'X-User-Token': cookieToken
+    }
+  };
+
+  let request2 = axios.post(`http://kanban-project-management-api.herokuapp.com/v1/groups/${group_id}/change_leader`, values, axiosConfig)
+  .then(request2 => {
+    console.log('changeLeader ac:', request2),//działa dobrze
+  //  getUserTables(request2.data.data.user.email, request2.data.data.user.authentication_token),
+    callback() })
+  .catch((error) => {
+    console.log('Error, trzeba poprawiac :/ ' + error);
+  });
+
+  return {
+    type: CHANGE_LEADER,
+    payload: request2
+  };
+}
+
+//------------------------------------
+
+//DZIAŁA
+export function addUser(values, callback, group_id, cookieEmail, cookieToken) {
+  console.log('addUserToGroup ac', group_id)
+  console.log('values ac', values)
+  let axiosConfig = {
+    headers: {
+      'Content-Type': 'application/json',
+      'X-User-Email': cookieEmail,
+      'X-User-Token': cookieToken
+    }
+  };
+
+  let request2 = axios.post(`http://kanban-project-management-api.herokuapp.com/v1/groups/${group_id}/add_user_to_group`, values, axiosConfig)
+  .then(request2 => {
+    console.log('addUserToGroup ac:', request2),//działa dobrze
+  //  getUserTables(request2.data.data.user.email, request2.data.data.user.authentication_token),
+    callback() })
+  .catch((error) => {
+    console.log('Error, trzeba poprawiac :/ ' + error);
+  });
+
+  return {
+    type: ADD_USER_TO_GROUP,
+    payload: request2
+  };
+}
+
+//--------------------------------------
 
 // function asyncStart(){
 //    return { type:'ASYNC_REQUEST' };
