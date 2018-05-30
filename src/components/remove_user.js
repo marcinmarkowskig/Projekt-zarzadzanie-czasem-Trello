@@ -27,11 +27,7 @@ class RemoveUser extends Component {
       onSubmit(values) {
         let cookieEmail = showCookie("cookieEmail");
         let cookieToken = showCookie("cookieToken");
-        this.props.removeUser(values, () => {
-   alert('Użytkownik został usunięty z grupy');
-  //      this.props.history.push(`/show-group/:${this.props.id}`);
-
-        }, this.props.id, cookieEmail, cookieToken);
+        this.props.removeUser(values, this.props.id, cookieEmail, cookieToken);
       }
 
       render() {

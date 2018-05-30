@@ -8,6 +8,7 @@ import promise from 'redux-promise';
 //import CreateUser from './components/create_user';
 //import Tables from './components/tables';
 import GetUserTables from './components/get_user_tables';
+import GetListsCards from './components/Cards/get_lists_cards';
 import ShowGroup from './components/show_group';
 import GetTablesLists from './components/get_tables_lists';
 import GetUserGroups from './components/get_user_groups';
@@ -16,11 +17,12 @@ import CreateTable from './components/create_table';
 import CreateUser from './components/create_user';
 import CreateGroup from './components/create_group';
 import SignIn from './components/sign_in';
+import CreateCard from './components/Cards/create_card';
 
 import reducers from './reducers';
-import promiseMiddleware from 'redux-promise-middleware';
+//import promiseMiddleware from 'redux-promise-middleware';
 //---
-import thunk from 'redux-thunk';
+//import thunk from 'redux-thunk';
 import rootReducer from './reducers/index';
 
 // const store2 = createStore(
@@ -48,6 +50,8 @@ ReactDOM.render(
          <Route path="/create-user" component={CreateUser} />
          <Route path="/create-table" component={CreateTable} />
          <Route path="/create-group" component={CreateGroup} />
+         <Route path="/create-card/v1/tables/:id_table/lists/:id_list/cards" component={CreateCard} />
+         <Route path="/get-lists-cards/v1/tables/:id_table/lists/:id_list/cards" component={GetListsCards} />
          <Route path="/get-user-groups" component={GetUserGroups} />
          <Route path="/get-user-tables" component={GetUserTables} />
          <Route path="/get-tables-lists/:id/create-list" component={CreateList} />

@@ -180,9 +180,9 @@ class ShowGroups extends Component {
           Dodaj użytkownika do grupy
         </button> */}
         <p></p>
-        {/* <ChangeLeader id={id} history={history}/>
+        <ChangeLeader id={id} history={history}/>
         <AddUser id={id}/>
-        <RemoveUser id={id}/> */}
+        <RemoveUser id={id}/>
       </div>
     );
   }
