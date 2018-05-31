@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { DELETE_CARD, GET_USER_TABLES, GET_USER_GROUPS, SIGN_IN, GET_TABLES_LISTS, SIGN_OUT, CREATE_TABLE, DELETE_TABLE, SHOW_GROUP, DELETE_GROUP, REMOVE_USER, GET_LISTS_CARDS } from '../actions';
+import { GET_COMMENT, DELETE_COMMENT, DELETE_CARD, GET_USER_TABLES, GET_USER_GROUPS, SIGN_IN, GET_TABLES_LISTS, SIGN_OUT, CREATE_TABLE, DELETE_TABLE, SHOW_GROUP, DELETE_GROUP, REMOVE_USER, GET_LISTS_CARDS } from '../actions';
 import * as actions from '../actions';
 
 export default function(state = {}, action) {
@@ -41,11 +41,21 @@ export default function(state = {}, action) {
     case REMOVE_USER://nie działa chyba do końca 27.05
     console.log('remove', action)
       return _.omit(state, action.payload);
+
     case GET_LISTS_CARDS:
     console.log('reducer', action)
       return _.mapKeys(action.payload.data.data, 'id');
-      case DELETE_CARD:
-    return _.omit(state, action.payload);
+
+    case DELETE_CARD:
+      return _.omit(state, action.payload);
+
+    case GET_COMMENT:
+      return _.mapKeys(action.payload.data.data, 'id');
+
+    case DELETE_COMMENT:
+      console.log('remove', action)
+      return _.omit(state, action.payload);
+
     default:
       return state;
   }

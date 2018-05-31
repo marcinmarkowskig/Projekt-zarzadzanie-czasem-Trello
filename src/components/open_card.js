@@ -1,35 +1,41 @@
 import _ from 'lodash';
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import { getListsCards, deleteCard } from '../../actions';
+import { getCardsComments, deleteComment } from '../actions';
 import { Link } from 'react-router-dom';
+import CreateComment from './create_comment';
+import DeleteComment from './delete_comment';
 
-class GetListsCards extends Component {
+class OpenCard extends Component {
   componentDidMount() {
     let cookieEmail = showCookie("cookieEmail");
     let cookieToken = showCookie("cookieToken");
     const { id_table } = this.props.match.params;
     const { id_list } = this.props.match.params;
-    this.props.getListsCards(cookieEmail, cookieToken, id_table, id_list)//służy do zapamiątania emaili i tokenów
+    const { id_card } = this.props.match.params;
+    console.log('componentDidMount')
+    console.log('id_table', id_table)
+    console.log('id_list', id_list)
+    console.log('id_card', id_card)
+    this.props.getCardsComments(cookieEmail, cookieToken, id_table, id_list, id_card)
   }
 
+
   fetchListsCards() {
-      const { id_table } = this.props.match.params;
-      const { id_list } = this.props.match.params;
-      console.log('get_lists_cards.js:', this.props.tables )
+      // const { id_table } = this.props.match.params;
+      // const { id_list } = this.props.match.params;
+      console.log('open_card.js:', this.props.tables )
       return _.map(this.props.tables, table => {
         return (
            <li className="list-group-item" key={table.id}>
-              <Link to={`/open-card/v1/tables/${id_table}/lists/${id_list}/cards/${table.id}/comments`}>
-               <b>Tytuł:</b> {table.title}
-               <p></p>
-               <b>Opis:</b> {table.description}
-             </Link>
+             Id: {table.id}
+              <p></p>
+             Opis: {table.content}
              <button
                className="btn btn-danger pull-xs-right"
                onClick={this.onDeleteClick.bind(this, table.id)}
              >
-               Usuń kartę
+               Usuń komentarz
              </button>
            </li>
         );
@@ -37,39 +43,46 @@ class GetListsCards extends Component {
     );
   }
 
-  onDeleteClick(id_card) {
+  onDeleteClick(id_comment) {
     const { id_table } = this.props.match.params;
     const { id_list } = this.props.match.params;
+    const { id_card } = this.props.match.params;
     let cookieEmail = showCookie("cookieEmail");
     let cookieToken = showCookie("cookieToken");
     console.log(id_table)//działa dobrze
-    this.props.deleteCard(id_table, id_list, id_card, cookieEmail, cookieToken, () => {
-      this.props.history.push(`/get-tables-lists/${id_table}`);
+    this.props.deleteComment(cookieEmail, cookieToken, id_table, id_list, id_card, id_comment, () => {
+      alert('Usunięto komentarz')
     });
   }
 
   render() {
     const { id_table } = this.props.match.params;
     const { id_list } = this.props.match.params;
+    const { id_card } = this.props.match.params;
 
     return (
       <div>
+        ----KOMENTARZE----
+        <p></p>
           <ul className="list-group">
             {this.fetchListsCards()}
           </ul>
-          <Link className="btn btn-danger" to={`/get-tables-lists/${id_table}`}>
-            Anuluj
+          <CreateComment id_table={id_table} id_list={id_list} id_card={id_card} />
+          {/* <DeleteComment id_table={id_table} id_list={id_list} id_card={id_card}/> */}
+          <Link className="btn btn-danger" to={`/get-lists-cards/v1/tables/${id_table}/lists/${id_list}/cards`}>
+            Powrót
           </Link>
+          <p></p>
+          ----------------
       </div>
     );
   }
-}
-
+  }
 function mapStateToProps(state) {
   return { tables: state.tables };
 }
 
-export default connect(mapStateToProps, { getListsCards, deleteCard })(GetListsCards);
+export default connect(mapStateToProps, { getCardsComments, deleteComment })(OpenCard);
 
 function showCookie(name) {//służy do pokazania w zakładce Application w konsoli nazw emaili i tokenów zapamiętanych w ciasteczkach
     if (document.cookie != "") {

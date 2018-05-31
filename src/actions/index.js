@@ -17,6 +17,9 @@ export const REMOVE_USER = 'remove_user';
 export const GET_LISTS_CARDS = 'get_lists_cards';
 export const CREATE_CARD = 'create_card';
 export const DELETE_CARD = 'delete_card';
+export const GET_COMMENT = 'get_comment';
+export const CREATE_COMMENT = 'create_comment';
+export const DELETE_COMMENT = 'delete_comment';
 
 export const GET_USER_TABLES = 'get_user_tables';
 export const SIGN_IN = 'sign_in';
@@ -626,7 +629,7 @@ console.log(request3)
 }
 
 //-------------------------------------
-
+//DZIAŁA DOBRZE
 export function deleteList(id_list, id_table, cookieEmail, cookieToken, callback) {
   let axiosConfig = {
     headers: {
@@ -641,7 +644,7 @@ export function deleteList(id_list, id_table, cookieEmail, cookieToken, callback
   .catch((error) => {
     console.log('Error, trzeba poprawiac :/ ' + error);
   });
-  
+
 console.log(request3)
   return {
     type: DELETE_LIST,
@@ -650,7 +653,75 @@ console.log(request3)
 }
 
 //------------------------------------------
+//DZIAŁA DOBRZE
+export function getCardsComments(cookieEmail, cookieToken, id_table, id_list, id_card) {
 
+  let axiosConfig = {
+    headers: {
+      'X-User-Email': cookieEmail,
+      'X-User-Token': cookieToken
+    }
+  };
+
+ let request = axios.get(`http://kanban-project-management-api.herokuapp.com/v1/tables/${id_table}/lists/${id_list}/cards/${id_card}/comments`, axiosConfig)
+
+   return {
+     type: GET_COMMENT,
+     payload: request
+   };
+}
+
+//-----------------------------------------
+
+//DZIAŁA DOBRZE
+export function createComment(values, callback, cookieEmail, cookieToken, id_table, id_list, id_card) {
+// console.log('values createCard ac:', values)
+// console.log('tableId createCard ac:', tableId)
+// console.log('listId createCard ac:', listId)
+  let axiosConfig = {
+     headers: {
+        'Content-Type': 'application/json',
+        'X-User-Email': cookieEmail,
+        'X-User-Token': cookieToken
+    }
+ };
+
+ //console.log('axiosConfig createCard ac:', axiosConfig)
+  let request2 = axios.post(`http://kanban-project-management-api.herokuapp.com/v1/tables/${id_table}/lists/${id_list}/cards/${id_card}/comments`,values, axiosConfig)
+.then(() => callback())
+  return {
+    type: CREATE_COMMENT,
+    payload: request2
+  }
+}
+
+
+//--------------------------------------------
+//SPRAWDZIc
+export function deleteComment( cookieEmail, cookieToken, id_table, id_list, id_card, id_comment, callback) {
+  console.log('jestem tu delete comment ac')
+
+  let axiosConfig = {
+    headers: {
+      'Content-Type': 'application/json',
+      'X-User-Email': cookieEmail,
+      'X-User-Token': cookieToken
+    }
+  };
+
+  let request3 = axios.delete(`http://kanban-project-management-api.herokuapp.com/v1/tables/${id_table}/lists/${id_list}/cards/${id_card}/comments/${id_comment}`, axiosConfig)
+  .then(() => callback())
+  .catch((error) => {
+    console.log('Error, trzeba poprawiac :/ ' + error);
+  });
+console.log(request3)
+  return {
+    type: DELETE_COMMENT,
+    payload: request3
+  };
+}
+
+//--------------------------------------------
 function setCookie(name, val, days, path, domain, secure) {
     if (navigator.cookieEnabled) { //czy ciasteczka są włączone
         const cookieName = encodeURIComponent(name);

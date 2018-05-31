@@ -18,6 +18,7 @@ import CreateUser from './components/create_user';
 import CreateGroup from './components/create_group';
 import SignIn from './components/sign_in';
 import CreateCard from './components/Cards/create_card';
+import OpenCard from './components/open_card';
 
 import reducers from './reducers';
 //import promiseMiddleware from 'redux-promise-middleware';
@@ -52,6 +53,7 @@ ReactDOM.render(
          <Route path="/create-group" component={CreateGroup} />
          <Route path="/create-card/v1/tables/:id_table/lists/:id_list/cards" component={CreateCard} />
          <Route path="/get-lists-cards/v1/tables/:id_table/lists/:id_list/cards" component={GetListsCards} />
+         <Route path="/open-card/v1/tables/:id_table/lists/:id_list/cards/:id_card/comments" component={OpenCard} />
          <Route path="/get-user-groups" component={GetUserGroups} />
          <Route path="/get-user-tables" component={GetUserTables} />
          <Route path="/get-tables-lists/:id/create-list" component={CreateList} />
