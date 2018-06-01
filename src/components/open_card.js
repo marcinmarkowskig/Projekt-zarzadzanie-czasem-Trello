@@ -1,10 +1,10 @@
 import _ from 'lodash';
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import { getCardsComments, deleteComment } from '../actions';
+import { getCardsComments, deleteComment, getCardsTasksLists, deleteTaskList } from '../actions';
 import { Link } from 'react-router-dom';
 import CreateComment from './create_comment';
-import DeleteComment from './delete_comment';
+import CreateTaskList from './create_task_list';
 
 class OpenCard extends Component {
   componentDidMount() {
@@ -13,17 +13,11 @@ class OpenCard extends Component {
     const { id_table } = this.props.match.params;
     const { id_list } = this.props.match.params;
     const { id_card } = this.props.match.params;
-    console.log('componentDidMount')
-    console.log('id_table', id_table)
-    console.log('id_list', id_list)
-    console.log('id_card', id_card)
+    this.props.getCardsTasksLists(cookieEmail, cookieToken, id_table, id_list, id_card)
     this.props.getCardsComments(cookieEmail, cookieToken, id_table, id_list, id_card)
   }
 
-
-  fetchListsCards() {
-      // const { id_table } = this.props.match.params;
-      // const { id_list } = this.props.match.params;
+  fetchComments() {
       console.log('open_card.js:', this.props.tables )
       return _.map(this.props.tables, table => {
         return (
@@ -33,7 +27,7 @@ class OpenCard extends Component {
              Opis: {table.content}
              <button
                className="btn btn-danger pull-xs-right"
-               onClick={this.onDeleteClick.bind(this, table.id)}
+               onClick={this.onDeleteClickComment.bind(this, table.id)}
              >
                Usuń komentarz
              </button>
@@ -43,7 +37,28 @@ class OpenCard extends Component {
     );
   }
 
-  onDeleteClick(id_comment) {
+  fetchTasksLists() {
+      console.log('open_card2.js:', this.props.tasksLists )
+      return _.map(this.props.tasksLists, taskList => {
+        return (
+           <li className="list-group-item" key={taskList.id}>
+             Id: {taskList.id}
+              <p></p>
+             Opis: {taskList.name}
+             <button
+               className="btn btn-danger pull-xs-right"
+               onClick={this.onDeleteClickTaskList.bind(this, taskList.id)}
+             >
+               Usuń listę zadań
+             </button>
+           </li>
+        );
+      }
+    );
+  }
+
+
+  onDeleteClickComment(id_comment) {
     const { id_table } = this.props.match.params;
     const { id_list } = this.props.match.params;
     const { id_card } = this.props.match.params;
@@ -55,6 +70,17 @@ class OpenCard extends Component {
     });
   }
 
+  onDeleteClickTaskList(id_taskList) {
+    const { id_table } = this.props.match.params;
+    const { id_list } = this.props.match.params;
+    const { id_card } = this.props.match.params;
+    let cookieEmail = showCookie("cookieEmail");
+    let cookieToken = showCookie("cookieToken");
+    this.props.deleteTaskList(cookieEmail, cookieToken, id_table, id_list, id_card, id_taskList, () => {
+      alert('Usunięto listę zadań')
+    });
+  }
+
   render() {
     const { id_table } = this.props.match.params;
     const { id_list } = this.props.match.params;
@@ -62,10 +88,19 @@ class OpenCard extends Component {
 
     return (
       <div>
-        ----KOMENTARZE----
+        --------Tasks Lists--------
         <p></p>
           <ul className="list-group">
-            {this.fetchListsCards()}
+            {this.fetchTasksLists()}
+          </ul>
+          <CreateTaskList id_table={id_table} id_list={id_list} id_card={id_card}/>
+        <p></p>
+        ---------------------------
+        <p></p>
+        --------KOMENTARZE--------
+        <p></p>
+          <ul className="list-group">
+            {this.fetchComments()}
           </ul>
           <CreateComment id_table={id_table} id_list={id_list} id_card={id_card} />
           {/* <DeleteComment id_table={id_table} id_list={id_list} id_card={id_card}/> */}
@@ -73,16 +108,16 @@ class OpenCard extends Component {
             Powrót
           </Link>
           <p></p>
-          ----------------
+          ----------------------------
       </div>
     );
   }
   }
 function mapStateToProps(state) {
-  return { tables: state.tables };
+  return { tables: state.tables, tasksLists: state.tasksLists };
 }
 
-export default connect(mapStateToProps, { getCardsComments, deleteComment })(OpenCard);
+export default connect(mapStateToProps, { getCardsComments, deleteComment, getCardsTasksLists, deleteTaskList })(OpenCard);
 
 function showCookie(name) {//służy do pokazania w zakładce Application w konsoli nazw emaili i tokenów zapamiętanych w ciasteczkach
     if (document.cookie != "") {
