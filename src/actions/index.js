@@ -23,6 +23,8 @@ export const DELETE_COMMENT = 'delete_comment';
 export const DELETE_TASK_LIST = 'delete_task_list';
 export const GET_CARDS_TASKS_LISTS = 'get_cards_tasks_lists';
 export const CREATE_TASK_LIST = 'create_task_list';
+export const GET_TASKS_LISTS_TASKS = 'get_tasks_lists_tasks';
+export const DELETE_TASK = 'delete_task';
 
 export const GET_USER_TABLES = 'get_user_tables';
 export const SIGN_IN = 'sign_in';
@@ -785,6 +787,48 @@ console.log(values)
     type: CREATE_TASK_LIST,
     payload: request2
   }
+}
+
+//--------------------------------------------
+//DZIAŁA DOBRZE
+export function getTasksListsTasks(cookieEmail, cookieToken, id_table, id_list, id_card, id_taskList) {
+  let axiosConfig = {
+    headers: {
+      'X-User-Email': cookieEmail,
+      'X-User-Token': cookieToken
+    }
+  };
+
+ let request = axios.get(`http://kanban-project-management-api.herokuapp.com/v1/tables/${id_table}/lists/${id_list}/cards/${id_card}/tasks_lists/${id_taskList}/tasks`, axiosConfig)
+//.then(request => console.log('vvv',request)) // w ten sposób  pisac
+   return {
+     type: GET_TASKS_LISTS_TASKS,
+     payload: request
+   };
+}
+
+//--------------------------------------------
+
+export function deleteTask(cookieEmail, cookieToken, id_table, id_list, id_card, id_taskList, id_task, callback) {
+  let axiosConfig = {
+    headers: {
+      'Content-Type': 'application/json',
+      'X-User-Email': cookieEmail,
+      'X-User-Token': cookieToken
+    }
+  };
+
+  let request3 = axios.delete(`http://kanban-project-management-api.herokuapp.com/v1/tables/${id_table}/lists/${id_list}/cards/${id_card}/tasks_lists/${id_taskList}/tasks/${id_task}`, axiosConfig)
+  .then(() => callback())
+  .catch((error) => {
+    console.log('Error, trzeba poprawiac :/ ' + error);
+  });
+
+console.log(request3)
+  return {
+    type: DELETE_TASK,
+    payload: request3
+  };
 }
 
 //--------------------------------------------

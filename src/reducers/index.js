@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import TrelloReducers from './reducers_trello';
 import TrelloReducersTasksLists from './reducers_trello_tasks_lists';
+import TrelloReducersTasks from './reducers_trello_tasks';
 import { reducer as formReducer } from 'redux-form';
 // import {
 //   createStore,
@@ -14,6 +15,7 @@ import { reducer as formReducer } from 'redux-form';
 const rootReducer = combineReducers({
   tables: TrelloReducers,
   tasksLists: TrelloReducersTasksLists,
+  tasks: TrelloReducersTasks,
   form: formReducer
 });
 
