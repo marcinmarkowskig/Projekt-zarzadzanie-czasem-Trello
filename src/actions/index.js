@@ -25,6 +25,8 @@ export const GET_CARDS_TASKS_LISTS = 'get_cards_tasks_lists';
 export const CREATE_TASK_LIST = 'create_task_list';
 export const GET_TASKS_LISTS_TASKS = 'get_tasks_lists_tasks';
 export const DELETE_TASK = 'delete_task';
+export const CREATE_TASK = 'create_task';
+export const GET_GROUP_TABLES = 'get_group_tables';
 
 export const GET_USER_TABLES = 'get_user_tables';
 export const SIGN_IN = 'sign_in';
@@ -172,7 +174,7 @@ export function signIn(values, callback, dane) {
 // export const GET_USER_TABLES_REJECTED = 'GET_USER_TABLES_REJECTED';
 
 //--------------------------------------------------
-
+//DZIAŁA DOBRZE
 export function getUserTables(email, authentication_token) {
 
        let axiosConfig = {
@@ -189,7 +191,23 @@ export function getUserTables(email, authentication_token) {
     payload: request
   }
 }
-
+//---------------------------------------------------
+// export function getGroupTables(email, authentication_token) {
+//
+//        let axiosConfig = {
+//          headers: {
+//            'X-User-Email': email,
+//            'X-User-Token': authentication_token
+//          }
+//        };
+//
+//   let request = axios.get('http://kanban-project-management-api.herokuapp.com/v1/tables', axiosConfig)
+//
+//   return {
+//     type: GET_GROUP_TABLES,
+//     payload: request
+//   }
+// }
 //------------------------------------
 
 export function getTablesLists(table_id, cookieEmail, cookieToken) {
@@ -808,7 +826,7 @@ export function getTasksListsTasks(cookieEmail, cookieToken, id_table, id_list, 
 }
 
 //--------------------------------------------
-
+//DZIAŁA DOBRZE
 export function deleteTask(cookieEmail, cookieToken, id_table, id_list, id_card, id_taskList, id_task, callback) {
   let axiosConfig = {
     headers: {
@@ -829,6 +847,29 @@ console.log(request3)
     type: DELETE_TASK,
     payload: request3
   };
+}
+//-------------------------------------------
+
+export function createTask(values, callback, cookieEmail, cookieToken, id_table, id_list, id_card, id_taskList) {
+// console.log('values createCard ac:', values)
+// console.log('tableId createCard ac:', tableId)
+// console.log('listId createCard ac:', listId)
+console.log('tu')
+  let axiosConfig = {
+     headers: {
+        'Content-Type': 'application/json',
+        'X-User-Email': cookieEmail,
+        'X-User-Token': cookieToken
+    }
+ };
+
+ //console.log('axiosConfig createCard ac:', axiosConfig)
+  let request2 = axios.post(`http://kanban-project-management-api.herokuapp.com/v1/tables/${id_table}/lists/${id_list}/cards/${id_card}/tasks_lists/${id_taskList}/tasks`, values, axiosConfig)
+.then(() => callback())
+  return {
+    type: CREATE_TASK,
+    payload: request2
+  }
 }
 
 //--------------------------------------------

@@ -19,7 +19,7 @@ class OpenCard extends Component {
   }
 
   fetchComments() {
-      console.log('open_card.js:', this.props.tables )
+    //  console.log('komentarze.js:', this.props.tables )
       return _.map(this.props.tables, table => {
         return (
            <li className="list-group-item" key={table.id}>
@@ -38,35 +38,39 @@ class OpenCard extends Component {
     );
   }
 
+//-----
   fetchTasksLists() {
     let cookieEmail = showCookie("cookieEmail");
     let cookieToken = showCookie("cookieToken");
     const { id_table } = this.props.match.params;
     const { id_list } = this.props.match.params;
     const { id_card } = this.props.match.params;
-      console.log('open_card2.js:', this.props.tasksLists )
+  //  console.log('listy zadań.js:', this.props.tasksLists )
       return _.map(this.props.tasksLists, taskList => {
+        // {this.props.getTasksListsTasks(cookieEmail, cookieToken, id_table, id_list, id_card, taskList.id)}
+  //console.log('taskList', taskList)
         return (
            <li className="list-group-item" key={taskList.id}>
              Id: {taskList.id}
               <p></p>
              Opis: {taskList.name}
-
              <button
                className="btn btn-danger pull-xs-right"
                onClick={this.onDeleteClickTaskList.bind(this, taskList.id)}
              >
                Usuń listę zadań
              </button>
-
-             <GetTasksListsTasks id_table={id_table} id_list={id_list} id_card={id_card} id_taskList={taskList.id} />
-
+             <Link className="btn btn-primary" to={`/get-tasks-lists-tasks/v1/tables/${id_table}/lists/${id_list}/cards/${id_card}/tasks_lists/${taskList.id}/tasks`}>
+                {/* {this.props.getTasksListsTasks(cookieEmail, cookieToken, id_table, id_list, id_card, taskList.id)} */}
+               Pokaż zadania
+             </Link>
+{/* <GetTasksListsTasks id_table={id_table} id_list={id_list} id_card={id_card} id_taskList={taskList.id}/> */}
            </li>
         );
       }
     );
   }
-
+//--------------
 
   onDeleteClickComment(id_comment) {
     const { id_table } = this.props.match.params;
@@ -105,7 +109,7 @@ class OpenCard extends Component {
           </ul>
           <CreateTaskList id_table={id_table} id_list={id_list} id_card={id_card}/>
         <p></p>
-        ---------------------------
+        {/* ---------------------------
         <p></p>
         --------KOMENTARZE--------
         <p></p>
@@ -113,18 +117,18 @@ class OpenCard extends Component {
             {this.fetchComments()}
           </ul>
           <CreateComment id_table={id_table} id_list={id_list} id_card={id_card} />
-          {/* <DeleteComment id_table={id_table} id_list={id_list} id_card={id_card}/> */}
+          {/* <DeleteComment id_table={id_table} id_list={id_list} id_card={id_card}/>
           <Link className="btn btn-danger" to={`/get-lists-cards/v1/tables/${id_table}/lists/${id_list}/cards`}>
             Powrót
           </Link>
-          <p></p>
+          <p></p> */}
           ----------------------------
       </div>
     );
   }
   }
 function mapStateToProps(state) {
-  return { tables: state.tables, tasksLists: state.tasksLists };
+  return { tables: state.tables, tasksLists: state.tasksLists, tasks:state.tasks };
 }
 
 export default connect(mapStateToProps, { getCardsComments, deleteComment, getCardsTasksLists, deleteTaskList, getTasksListsTasks })(OpenCard);

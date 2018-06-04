@@ -9,10 +9,11 @@ class GetUserTables extends Component {
     let cookieEmail = showCookie("cookieEmail");
     let cookieToken = showCookie("cookieToken");
     this.props.getUserTables(cookieEmail, cookieToken)//służy do zapamiątania emaili i tokenów
+  //  this.props.getGroupTables(cookieEmail, cookieToken)//służy do zapamiątania emaili i tokenów
   }
 
-  fetchTables() {
-      console.log('fetchTables get_user_tables.js:', this.props.tables )
+  fetchTablesPrivate() {
+      console.log('fetchTables get_user_tablesprivate.js:', this.props.tables )
       return _.map(this.props.tables, table => {
         return (
           <li className="list-group-item" key={table.id}>
@@ -24,6 +25,20 @@ class GetUserTables extends Component {
       }
     );
   }
+
+  // fetchTablesGroup() {
+  //     console.log('fetchTables get_user_tablesgroup.js:', this.props.tables )
+  //     return _.map(this.props.tables, table => {
+  //       return (
+  //         <li className="list-group-item" key={table.id}>
+  //           <Link to={`/get-tables-lists/${table.id}`}>
+  //             {table.name}
+  //           </Link>
+  //         </li>
+  //       );
+  //     }
+  //   );
+  // }
 
   // signOut2() {
   //   console.log('Sign out')
@@ -51,10 +66,14 @@ class GetUserTables extends Component {
           </div>
           </Link>
         </div>
-        <h3>Tablice:</h3>
+        <h3>Tablice prywatne:</h3>
           <ul className="list-group">
-            {this.fetchTables()}
+            {this.fetchTablesPrivate()}
           </ul>
+        {/* <h3>Tablice grupowe:</h3>
+          <ul className="list-group">
+            {this.fetchTablesGroup()}
+          </ul> */}
           <Link className="btn btn-primary" to="/create-table">
             Utwórz nową tablicę
           </Link>

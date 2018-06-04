@@ -19,6 +19,7 @@ import CreateGroup from './components/create_group';
 import SignIn from './components/sign_in';
 import CreateCard from './components/Cards/create_card';
 import OpenCard from './components/open_card';
+import GetTasksListsTasks from './components/get_tasks_lists_tasks';
 
 import reducers from './reducers';
 //import promiseMiddleware from 'redux-promise-middleware';
@@ -56,6 +57,7 @@ ReactDOM.render(
          <Route path="/open-card/v1/tables/:id_table/lists/:id_list/cards/:id_card/comments" component={OpenCard} />
          <Route path="/get-user-groups" component={GetUserGroups} />
          <Route path="/get-user-tables" component={GetUserTables} />
+         <Route path="/get-tasks-lists-tasks/v1/tables/:id_table/lists/:id_list/cards/:id_card/tasks_lists/:id_taskList/tasks" component={GetTasksListsTasks} />
          <Route path="/get-tables-lists/:id/create-list" component={CreateList} />
          <Route path="/get-tables-lists/:id" component={GetTablesLists} />
          <Route path="/" component={SignIn}/>
