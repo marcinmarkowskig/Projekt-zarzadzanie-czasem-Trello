@@ -1,0 +1,47 @@
+.backgroundSignIn { border-radius: 15px; border: 3px solid #ffc15e; -webkit-box-shadow: 10px 10px; box-shadow: 10px 10px; padding: 15px 70px 30px; -webkit-box-sizing: border-box; box-sizing: border-box; margin: 30px 200px 50px; background: #f0f0c9; }
+
+.labelSignIn { color: #111111; }
+
+.labelEmail, .labelPassword, .labelPasswordConfirmation { text-align: center; margin-bottom: -20px; font-size: 20px; }
+
+.labelEmail { margin-top: 30px; }
+
+.labelPassword { margin-top: 20px; }
+
+.Hi { text-align: center; font-size: 40px; margin-bottom: -20px; }
+
+.divSignIn { margin-top: 40px; text-align: center; }
+
+.btnSI { margin-left: 245px; background-color: #42a1f4; font-size: 20px; }
+
+.btnSI2 { margin-left: 255px; }
+
+.info { margin-left: auto; margin-right: auto; text-align: center; color: black; }
+
+.divSignIn { color: #72d827; }
+
+#navbar { overflow: hidden; background-color: #300; }
+
+/* Navbar links */
+#navbar a { float: left; display: block; color: #f2f2f2; text-align: center; padding: 15px; text-decoration: none; }
+
+#navbar #block { background-color: #c42725; float: right; }
+
+/* Page content */
+.content { padding: 15px; }
+
+/* The sticky class is added to the navbar with JS when it reaches its scroll position */
+.sticky { position: fixed; top: 0; width: 100%; }
+
+/* The sticky class is added to the navbar with JS when it reaches its scroll position */
+.stickyFooter { text-align: center; position: fixed; bottom: 0; width: 100%; padding-bottom: 20px; font-size: 20px; }
+
+.backgroundCreateUser { border-radius: 15px; border: 3px solid #ffc15e; -webkit-box-shadow: 10px 10px; box-shadow: 10px 10px; padding: 15px 70px 30px; -webkit-box-sizing: border-box; box-sizing: border-box; margin: 30px 200px 50px; background: #f0f0c9; }
+
+.createAnAccount { text-align: center; font-size: 40px; margin-bottom: -20px; }
+
+.btn-primary { margin-left: 200px; }
+
+.btn-danger { margin-left: 20px; }
+
+/*# sourceMappingURL=style.css.map */

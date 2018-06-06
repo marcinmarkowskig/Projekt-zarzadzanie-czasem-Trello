@@ -47,6 +47,11 @@ class CreateTable extends Component {
           name="name"
           component={this.renderField}
         />
+        <Field
+          label="group_id"
+          name="group_id"
+          component={this.renderField}
+        />
         <div>
             <button type="submit" className="btn btn-primary">Utwórz</button>
         </div>
@@ -64,6 +69,9 @@ function validate(values) {
 
     if (!values.name) {
       errors.name = "Wprowadź nazwę tablicy!";
+    }
+    if (!values.group_id) {
+      errors.group_id = "Wprowadź id grupy!";
     }
 
     return errors;

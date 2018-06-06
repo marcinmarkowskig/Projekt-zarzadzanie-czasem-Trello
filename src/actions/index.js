@@ -193,7 +193,7 @@ export function getUserTables(email, authentication_token) {
 }
 //---------------------------------------------------
 // export function getGroupTables(email, authentication_token) {
-//
+//sfasfasfasf
 //        let axiosConfig = {
 //          headers: {
 //            'X-User-Email': email,
@@ -285,6 +285,7 @@ export function createList(values, callback, table_id, cookieEmail, cookieToken)
 //DZIAŁA
 export function createTable(values, cookieEmail, cookieToken, callback) {
   let a = values.name
+  let b = values.group_id
   let axiosConfig = {
     headers: {
       'Content-Type': 'application/json',
@@ -295,8 +296,10 @@ export function createTable(values, cookieEmail, cookieToken, callback) {
 
   let data = {
     name: a,
-    is_private: true,
+    group_id: b
+  //  is_private: true, // było to i i tak działa dobrze
   }
+  console.log('data',data)
   //console.log(data)
   let request2 = axios.post('http://kanban-project-management-api.herokuapp.com/v1/tables', data, axiosConfig)
   .then(() => callback())
@@ -812,6 +815,7 @@ console.log(values)
 export function getTasksListsTasks(cookieEmail, cookieToken, id_table, id_list, id_card, id_taskList) {
   let axiosConfig = {
     headers: {
+      'Content-Type': 'application/json',
       'X-User-Email': cookieEmail,
       'X-User-Token': cookieToken
     }

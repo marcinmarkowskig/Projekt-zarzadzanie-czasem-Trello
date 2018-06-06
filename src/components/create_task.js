@@ -65,7 +65,7 @@ class CreateTask extends Component {
   function validate(values) {
     const errors = {};
 
-    if (!values.content_name) {
+    if (!values.content) {
       errors.content = "Wprowadź nazwę!";
     }
     if (!values.assigned_to) {

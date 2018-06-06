@@ -13,7 +13,7 @@ class GetTasksListsTasks extends Component {
     const { id_list } = this.props.match.params;
     const { id_card } = this.props.match.params;
     const {id_taskList} = this.props.match.params;
-    console.log(id_table, id_list, id_card, id_taskList)
+    console.log('marcin', id_table, id_list, id_card, id_taskList)
     this.props.getTasksListsTasks(cookieEmail, cookieToken, id_table, id_list, id_card, id_taskList);
   }
 
@@ -49,16 +49,20 @@ class GetTasksListsTasks extends Component {
              Opis: {task.content}
              <p></p>
              Stan: {String(task.is_finished)}
-
-
              <p></p>
-             Id wykonawcy: {task.assigned_to}
+
              <button
                className="btn btn-danger pull-xs-right"
                onClick={this.onDeleteClickTask.bind(this, task.id)}
              >
                Usuń zadanie
              </button>
+             
+             Id wykonawcy: {task.assigned_to.id}
+             <p></p>
+             Email wykonawcy: {task.assigned_to.email}
+             <p></p>
+
 
            </li>
 

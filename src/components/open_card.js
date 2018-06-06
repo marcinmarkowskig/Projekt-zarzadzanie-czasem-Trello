@@ -9,6 +9,7 @@ import GetTasksListsTasks from './get_tasks_lists_tasks';
 
 class OpenCard extends Component {
   componentDidMount() {
+        console.log('opencard123')
     let cookieEmail = showCookie("cookieEmail");
     let cookieToken = showCookie("cookieToken");
     const { id_table } = this.props.match.params;
@@ -109,7 +110,7 @@ class OpenCard extends Component {
           </ul>
           <CreateTaskList id_table={id_table} id_list={id_list} id_card={id_card}/>
         <p></p>
-        {/* ---------------------------
+        ---------------------------
         <p></p>
         --------KOMENTARZE--------
         <p></p>
@@ -117,11 +118,11 @@ class OpenCard extends Component {
             {this.fetchComments()}
           </ul>
           <CreateComment id_table={id_table} id_list={id_list} id_card={id_card} />
-          {/* <DeleteComment id_table={id_table} id_list={id_list} id_card={id_card}/>
+         {/* <DeleteComment id_table={id_table} id_list={id_list} id_card={id_card}/> */}
           <Link className="btn btn-danger" to={`/get-lists-cards/v1/tables/${id_table}/lists/${id_list}/cards`}>
             Powrót
           </Link>
-          <p></p> */}
+          <p></p>
           ----------------------------
       </div>
     );
