@@ -35,7 +35,7 @@ class CreateUser extends Component {
 
     return (
       <div className='backgroundCreateUser'>
-      <div className='createAnAccount'><b>CREATE AN ACCOUNT</b></div><p></p>
+      <div className='createAnAccount'><b>Create an account</b></div><p></p>
         <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
           <div className='labelEmail'>Email</div>
           <Field
