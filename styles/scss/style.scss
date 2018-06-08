@@ -154,9 +154,10 @@ $font-color: #111111;
 
 #tablesNames {
   background: $orange;
-  margin: 4px;
+  margin: 10px;
   text-align: center;
   font-size: 18px;
+  box-shadow: 2px 2px 20px black;
 }
 
 #tablesNames:hover {
@@ -180,7 +181,7 @@ $font-color: #111111;
   margin-top: -6px;
 }
 
-.labelNameCreateTable, .labelIdGroupCreateTable {
+.labelNameCreateTable, .labelIdGroupCreateTable, .labelNameCreateCard {
   text-align: center;
   margin-bottom: -20px;
   font-size: 20px;
@@ -226,6 +227,7 @@ $font-color: #111111;
   color: $navyBlue;
   text-align: center;
   font-size: 20px;
+  box-shadow: 2px 2px 20px black;
 }
 
 #listsNames:hover {
@@ -269,4 +271,80 @@ $font-color: #111111;
 #btnBackCreateList {
   margin-top: 20px;
   margin-left: 20px;
+}
+
+//cards
+.backgroundGetListsCards {
+  padding: 15px 70px 30px;
+  box-sizing: border-box;
+  margin: 30px 100px 50px;
+  text-align: center;
+}
+
+#cardsNames a {
+  color: $navyBlue;
+  text-decoration: none;
+  font-size: 18px;
+}
+
+#cardsNames {
+  background: white;
+  margin: 10px;
+  color: $navyBlue;
+  text-align: center;
+  font-size: 18px;
+  box-shadow: 2px 2px 15px black;
+}
+
+#cardsNames:hover {
+	-webkit-transform: scale(1.05);
+	-ms-transform: scale(1.05);
+	transform: scale(1.05);
+  background: #b3b3b5;
+    color: white;
+  #cardsNames a {
+    color: white;
+    text-decoration: none;
+    font-size: 22px;
+  }
+
+  #btnDeleteTable {
+    margin-top: -4px;
+  }
+
+  .b {
+    font-size: 22px;
+  }
+}
+
+.b {
+  text-align: center;
+  //margin-left: -100px;
+  font-size: 20px;
+}
+
+#btnBackGetListsCards {
+  position: relative;
+  margin-right: 295px;
+  margin-top: -40px;
+}
+
+#descriptionGetListsCards {
+  margin-bottom: 50px;
+}
+
+//CreateCard
+.backgroundCreateCard {
+  padding: 15px 70px 30px;
+  box-sizing: border-box;
+  margin: 30px 100px 50px;
+  text-align: center;
+}
+
+#btnCreateCreateCard {
+  margin-left: -60px;
+}
+
+#btnBackCreateCard {
+  margin-left: 20px
 }

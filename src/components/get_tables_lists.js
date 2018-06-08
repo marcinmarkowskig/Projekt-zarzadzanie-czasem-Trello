@@ -53,6 +53,7 @@ class GetTablesLists extends Component {
     let cookieToken = showCookie("cookieToken");
     console.log(table_id)
     this.props.deleteTable(table_id, cookieEmail, cookieToken, () => {
+      alert('List has been deleted successfully')
       this.props.history.push('/get-user-tables');
     });
   }
@@ -64,6 +65,7 @@ class GetTablesLists extends Component {
     console.log(id_list)
     this.props.deleteList(id_list, id, cookieEmail, cookieToken, () => {
       this.props.history.push('/get-user-tables');
+      alert('List has been deleted successfully')
     });
   }
 
