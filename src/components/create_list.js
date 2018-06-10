@@ -36,7 +36,6 @@ class CreateList extends Component {
     let cookieToken = showCookie("cookieToken");
 
     const { id } = this.props.match.params;//możemy to napisac dzięki React-Router; z adresu url pobieramy id ( z wildcarda /:id)
-    console.log('to sprawdzam', id)
     this.props.createList(values, () => {
       this.props.history.push(`/get-tables-lists/${id}`);
     }, id, cookieEmail, cookieToken);
@@ -45,7 +44,6 @@ class CreateList extends Component {
   render() {
     const { handleSubmit } = this.props;
     const { id } = this.props.match.params;//możemy to napisac dzięki React-Router; z adresu url pobieramy id ( z wildcarda /:id)
-    console.log('to sprawdzam', id)
     return (
       <div className='backgroundGetUserTables'>
         <div id="navbar">

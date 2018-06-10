@@ -16,15 +16,18 @@ class GetListsCards extends Component {
   fetchListsCards() {
       const { id_table } = this.props.match.params;
       const { id_list } = this.props.match.params;
-      console.log('get_lists_cards.js:', this.props.tables )
       return _.map(this.props.tables, table => {
         return (
            <li className="list-group-item" key={table.id} id="cardsNames">
               <Link to={`/open-card/v1/tables/${id_table}/lists/${id_list}/cards/${table.id}/comments`}>
               <p></p>
-                <div className='b'>{table.title}</div>
+                <div className='c'>{table.title}</div>
                  <p></p>
-               <div className='b' id='descriptionGetListsCards'><b>Description </b>{table.description}</div>
+               <div className='b' id='descriptionGetListsCards'><b>Description </b>
+               <p></p>
+               <div id="tableDescription">
+               {table.description}</div>
+             </div>
                <p></p>
                <button
                  id='btnBackGetListsCards'
@@ -76,7 +79,7 @@ class GetListsCards extends Component {
           <ul className="list-group" id='listGroupGetListsCards'>
             {this.fetchListsCards()}
           </ul>
-          <Link className="btn btn-danger" to={`/get-tables-lists/${id_table}`}>
+          <Link className="btn btn-danger" to={`/get-tables-lists/${id_table}`} id='btnBackCards'>
             Back
           </Link>
       </div>
